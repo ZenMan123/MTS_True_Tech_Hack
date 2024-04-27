@@ -1,0 +1,3 @@
+gensim==4.3.2
+nltk==3.8.1
+pymorphy2==0.9.1
