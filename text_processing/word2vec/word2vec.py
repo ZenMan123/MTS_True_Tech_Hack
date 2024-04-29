@@ -36,25 +36,32 @@ def add_part_of_speech(word: str) -> str:
 
 def get_closest_word(text: str, candidates: List[str]) -> str:
     words = [(add_part_of_speech(word), word) for word in nltk.word_tokenize(clear_text(text))]
-    candidates = [(add_part_of_speech(word), word) for word in candidates]
 
-    best_candidate, best_similarity = candidates[0], 0
+    parsed_candidates = []
     for candidate in candidates:
+        parsed_words = []
+        for word in nltk.word_tokenize(clear_text(candidate)):
+            parsed_words.append(add_part_of_speech(word))
+        parsed_candidates.append((parsed_words, candidate))
+
+    best_candidate, best_similarity = parsed_candidates[0][1], 0
+    for candidate in parsed_candidates:
         max_similarity = 0
 
-        for word in words:
-            try:
-                similarity = word2vec_model.similarity(word[0], candidate[0])
-            except KeyError:
-                similarity = 0
-            max_similarity = max(max_similarity, similarity)
+        for candidate_word in candidate[0]:
+            for word in words:
+                try:
+                    similarity = word2vec_model.similarity(word[0], candidate_word)
+                except KeyError:
+                    similarity = 0
+                max_similarity = max(max_similarity, similarity)
 
-        if max_similarity > best_similarity:
-            best_similarity = max_similarity
-            best_candidate = candidate[1]
+            if max_similarity > best_similarity:
+                best_similarity = max_similarity
+                best_candidate = candidate[1]
 
     return best_candidate
 
 
 print(get_closest_word("посмотреть свой счет",
-                       ['оформление', 'переводы', 'баланс']))
+                       ['оформление', 'переводы', 'мой баланс']))
