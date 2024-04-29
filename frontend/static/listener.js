@@ -46,7 +46,6 @@ function mediaRecorderStop() {
     listener.textContent = "ЗАПИСЬ"
     mediaRecorder = null
     chunks = []
-
     async function saveRecord() {
         const formData = new FormData()
         let audioName = prompt('Name?')
@@ -63,4 +62,5 @@ function mediaRecorderStop() {
             console.error(e)
         }
     }
+    saveRecord()
 }
