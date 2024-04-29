@@ -60,7 +60,6 @@ public class TestController {
             File tempFile = File.createTempFile(audioFile.getOriginalFilename(), "-temp");
             audioFile.transferTo(tempFile);
             MultimediaObject multimediaObject = new MultimediaObject(tempFile);
-            tempFile.delete();
             File outFile = File.createTempFile(audioFile.getOriginalFilename(), ".wav");
             Encoder encoder = new Encoder();
             EncodingAttributes attrs = new EncodingAttributes();
@@ -69,6 +68,7 @@ public class TestController {
             audio.setCodec("pcm_s16le");
             attrs.setAudioAttributes(audio);
             encoder.encode(multimediaObject, outFile, attrs);
+            tempFile.delete();
             AudioInputStream ais = AudioSystem.getAudioInputStream(outFile);
             //обработка
             return "Аудио успешно воспроизведено!";
