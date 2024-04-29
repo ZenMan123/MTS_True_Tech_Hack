@@ -1,4 +1,4 @@
-const speakEl = document.getElementById('listen')
+const speakEl = document.getElementById('speaker')
 speakEl.addEventListener('click', speakText)
 
 function speakText() {
