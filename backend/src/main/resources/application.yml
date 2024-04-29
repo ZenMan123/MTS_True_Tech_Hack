@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: wallet
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5437/wallet
+    username: postgres
+    password: postgres
+
+logging:
+  config: classpath:log4j2-plain.xml
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
