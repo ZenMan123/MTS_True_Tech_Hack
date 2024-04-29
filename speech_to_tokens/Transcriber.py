@@ -9,7 +9,7 @@ from pynput import keyboard
 import sounddevice as sd
 from scipy.io.wavfile import write
 
-
+#команду нужно прописать находясь в папке speech_to_tokens
 # ct2-transformers-converter --model mitchelldehaven/whisper-medium-ru --output_dir mitchelldehaven/whisper-medium-ru --quantization int8 --force
 # команда для скачивания модели, перед этим установить библиотеки сверху
 # позже напишу requirments
