@@ -4,21 +4,24 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.TransferMoneyRequest;
 import org.example.exception.InvalidRequestException;
 import org.example.repository.UserRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
+    @Transactional
     public void transferMoney(TransferMoneyRequest request) {
         long fromId = request.fromId();
         long toId = userRepository.findByPhoneNumber(request.toPhoneNumber())
-                .orElseThrow(InvalidRequestException::new).getId();
+                .orElseThrow(() -> new InvalidRequestException("Cannot find user with number: " + request.toPhoneNumber()))
+                .getId();
         double fromBalance = userRepository.getBalanceById(fromId)
-                .orElseThrow(InvalidRequestException::new);
+                .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
         double toBalance = userRepository.getBalanceById(toId)
-                .orElseThrow(InvalidRequestException::new);
+                .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
 
         validateTransferOperation(fromBalance, request.value());
         userRepository.updateBalanceById(fromId, fromBalance - request.value());
@@ -27,7 +30,7 @@ public class UserService {
 
     private void validateTransferOperation(double fromBalance, double value) {
         if (fromBalance < value) {
-            throw new InvalidRequestException("Баланс меньше чем сумма перевода");
+            throw new InvalidRequestException("The balance is less than the transfer amount");
         }
     }
 
