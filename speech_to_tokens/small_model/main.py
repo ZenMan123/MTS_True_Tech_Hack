@@ -1,6 +1,8 @@
+import json
 import vosk
 import queue
 import sounddevice as sd
+from text_to_num import alpha2digit
 
 que = queue.Queue(1)
 vosk.SetLogLevel(0)
@@ -14,4 +16,6 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
     while True:
         data = que.get()
         if rec.AcceptWaveform(data):
-            print(rec.FinalResult())
+            ans = json.loads(rec.Result())
+            if ans["text"]:
+                print(alpha2digit(ans["text"], 'ru', ordinal_threshold=0))
