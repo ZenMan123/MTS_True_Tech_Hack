@@ -1,0 +1,14 @@
+certifi==2024.2.2
+cffi==1.16.0
+charset-normalizer==3.3.2
+idna==3.7
+numpy==1.26.4
+PyAudio==0.2.14
+pycparser==2.22
+requests==2.31.0
+sounddevice==0.4.6
+srt==3.5.3
+tqdm==4.66.2
+urllib3==2.2.1
+vosk==0.3.44
+websockets==12.0
