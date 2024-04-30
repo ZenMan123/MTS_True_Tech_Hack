@@ -38,6 +38,10 @@ async function startRecord() {
     }
 }
 
+function getButtonList() {
+    return Array.of(document.getElementsByClassName('btn'))
+}
+
 function mediaRecorderStop() {
     audioBlob = new Blob(chunks, {type: 'audio/wav'})
     const audioUrl = URL.createObjectURL(audioBlob)
@@ -46,6 +50,7 @@ function mediaRecorderStop() {
     listener.textContent = "ЗАПИСЬ"
     mediaRecorder = null
     chunks = []
+
     async function saveRecord() {
         const formData = new FormData()
         let audioName = prompt('Name?')
@@ -54,7 +59,11 @@ function mediaRecorderStop() {
         try {
             await fetch('http://localhost:8080/upload-audio', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({buttons: getButtonList(), audio: formData})
             })
             console.log('Saved')
             audioBlob = null
@@ -62,5 +71,6 @@ function mediaRecorderStop() {
             console.error(e)
         }
     }
+
     saveRecord()
 }
