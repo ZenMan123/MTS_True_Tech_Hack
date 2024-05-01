@@ -51,7 +51,7 @@ class SpeechToText:
     def recognize_live_audio(self) -> None:
         self.samplerate = int(sd.query_devices(None, 'input')['default_samplerate'])
         self.rec = vosk.KaldiRecognizer(self.model, self.samplerate)
-        with sd.RawInputStream(samplerate=self.samplerate, blocksize=8000, dtype='int16',
+        with sd.RawInputStream(samplerate=self.samplerate, blocksize=self.chunk_size, dtype='int16',
                                channels=1, callback=lambda *it: self.que.put(bytes(it[0]))):
             print("Начало прослушивания:")
             while True:
