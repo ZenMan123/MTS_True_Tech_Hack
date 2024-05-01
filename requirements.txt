@@ -10,5 +10,5 @@ Flask==2.3.2
 sounddevice==0.4.6
 soundfile==0.12.1
 vosk==0.3.44
-text2num=2.5.1
+text2num==2.5.1
 
