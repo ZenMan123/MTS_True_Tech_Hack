@@ -7,3 +7,8 @@ torch==2.3.0
 transformers==4.40.1
 googletrans==4.0.0rc1
 Flask==2.3.2
+sounddevice==0.4.6
+soundfile==0.12.1
+vosk==0.3.44
+text2num==2.5.1
+
