@@ -1,4 +1,5 @@
 import json
+import os
 import wave
 import vosk
 import queue
@@ -47,6 +48,7 @@ class SpeechToText:
                 if result["text"]:
                     res.append(alpha2digit(result["text"], 'ru', ordinal_threshold=0))
         print(res)
+        #os.remove(wav_file_path) удаление файла после использования
         return res
 
 
