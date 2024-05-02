@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict, Union
 
 import gensim.downloader
 from gensim.models import KeyedVectors
@@ -34,21 +34,26 @@ def add_part_of_speech(word: str) -> str:
     return f"{normal_form}_{speech_part}"
 
 
-def get_closest_word(text: str, candidates: List[str]) -> str:
-    words = [(add_part_of_speech(word), word) for word in nltk.word_tokenize(clear_text(text))]
+def get_closest_button(request: str, candidates: List[Dict]) -> Dict:
+    assert all("button_id" in el for el in candidates), "All elements must contain 'button_id' field"
+    assert all("button_text" in el for el in candidates), "All elements must contain 'button_text' field"
+    assert not any("parsed_button_data" in el for el in candidates), \
+        "Your dict must not contain 'parsed_button_data' field"
+
+    words = [(add_part_of_speech(word), word) for word in nltk.word_tokenize(clear_text(request))]
 
     parsed_candidates = []
     for candidate in candidates:
         parsed_words = []
-        for word in nltk.word_tokenize(clear_text(candidate)):
+        for word in nltk.word_tokenize(clear_text(candidate["button_text"])):
             parsed_words.append(add_part_of_speech(word))
         parsed_candidates.append((parsed_words, candidate))
 
-    best_candidate, best_similarity = parsed_candidates[0][1], 0
-    for candidate in parsed_candidates:
+    best_candidate, best_similarity = parsed_candidates[0], 0
+    for parsed_candidate in parsed_candidates:
         max_similarity = 0
 
-        for candidate_word in candidate[0]:
+        for candidate_word in parsed_candidate[0]:
             for word in words:
                 try:
                     similarity = word2vec_model.similarity(word[0], candidate_word)
@@ -58,10 +63,27 @@ def get_closest_word(text: str, candidates: List[str]) -> str:
 
             if max_similarity > best_similarity:
                 best_similarity = max_similarity
-                best_candidate = candidate[1]
+                best_candidate = parsed_candidate[1]
 
     return best_candidate
 
 
-print(get_closest_word("посмотреть свой счет",
-                       ['оформление', 'переводы', 'мой баланс']))
+if __name__ == '__main__':
+    res = get_closest_button(
+        "посмотреть свой счет",
+        [
+            {
+                "button_text": "оформление",
+                "button_id": 1,
+            },
+            {
+                "button_text": "переводы",
+                "button_id": 2,
+            },
+            {
+                "button_text": "мой баланс",
+                "button_id": 3,
+            }
+        ]
+    )
+    print(res)
