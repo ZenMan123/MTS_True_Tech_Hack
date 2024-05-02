@@ -11,7 +11,7 @@ import sounddevice as sd
 import soundfile as sf
 from text_to_num import alpha2digit
 from typing import List
-from config import *
+from speech_processing.config import *
 
 
 class SpeechToText:
@@ -19,7 +19,7 @@ class SpeechToText:
         self.absolute_path = MODEL_DIR + "/" + MODEL_NAME
         self._ensure_model_exists()
         self.que = queue.Queue(1)
-        vosk.SetLogLevel(0)
+        vosk.SetLogLevel(-1)
         self.model = vosk.Model(self.absolute_path)
         self.samplerate = None
         self.rec = None
@@ -89,7 +89,6 @@ class SpeechToText:
                 result = json.loads(self.rec.Result())
                 if result["text"]:
                     res.append(alpha2digit(result["text"], 'ru', ordinal_threshold=0))
-        print(res)
         return res
 
 
