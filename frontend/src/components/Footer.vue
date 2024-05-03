@@ -16,8 +16,11 @@ export default {
     <a href="#" @click.prevent>Без App Store и Google Play</a>
   </div>
   
+
 </template>
 
 <style scoped>
-
+  p {
+    text-align: center;
+  }
 </style>
