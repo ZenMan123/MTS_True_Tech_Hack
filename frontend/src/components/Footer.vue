@@ -5,9 +5,14 @@ export default {
 </script>
 
 <template>
-  <p>Footer</p>
+  <div id="footer">
+    <hr/>
+    <p>Footer</p>
+  </div>
 </template>
 
 <style scoped>
-
+  p {
+    text-align: center;
+  }
 </style>

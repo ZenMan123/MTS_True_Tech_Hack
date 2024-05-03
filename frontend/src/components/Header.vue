@@ -1,17 +1,24 @@
 <template>
   <header>
-    <a href="#" @click.prevent="changePage('Index')">
-      <img class="logo" src="../assets/img/logo.png" alt="MTS Bank" title="MTS Bank"/>
-    </a>
-    <div class="enter-or-register-box">
-      <template v-if="user">
-        {{ user.login }}
-        |
-        <a href="#" @click.prevent="onLogout">Выйти</a>
-      </template>
-      <template v-else>
-        <a href="#" @click.prevent="changePage('Enter')">Войти</a>
-      </template>
+    <div class="first-nav">
+      <a href="#" @click.prevent="changePage('Index')">
+        <img class="logo" src="../assets/img/logo.png" alt="MTS Bank" title="MTS Bank"/>
+      </a>
+      <ul>
+        <li>Частным лицам</li>
+        <li>Малый бизнес и ИП</li>
+        <li>Корпоративный бизнес</li>
+      </ul>
+      <div class="enter-or-register-box">
+        <template v-if="user">
+          {{ user.login }}
+          |
+          <a href="#" @click.prevent="onLogout">Выйти</a>
+        </template>
+        <template v-else>
+          <a href="#" @click.prevent="changePage('Enter')">Войти</a>
+        </template>
+      </div>
     </div>
     <nav>
       <ul>
@@ -41,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
-
+.logo {
+  max-width: 5rem;
+}
 </style>
