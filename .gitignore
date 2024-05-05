@@ -1,3 +1,4 @@
 .idea/
 text_processing/models/
 speech_processing/models/
+.vs/

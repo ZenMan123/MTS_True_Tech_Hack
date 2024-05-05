@@ -14,10 +14,20 @@
 }
 
 html {
-    padding: 1rem;
     min-width: 600px;
-    max-width: 1280px;
+    /* max-width: 1280px; */
     margin: 0 auto;
+}
+body {
+    margin: 0;
+}
+
+@media (min-width: 1440px) {
+    :root {
+        font-size: 16px;
+        margin: 0 2.5rem;
+        padding: 0 2.5rem;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -74,34 +84,19 @@ header .first-nav ul li {
     color: var(--black-color);
     font-family: "Arial Narrow", sans-serif;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
-header nav {
+/* header nav {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 0.75rem 0.25rem;
     margin-top: 1rem;
-}
+} */
 
 header nav ul {
     margin: 0;
     padding: 0;
 }
-
-header nav ul li {
-    display: inline;
-    margin-left: 1rem;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: var(--black-color);
-    font-family: "Arial Narrow", sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 
 .middle {
     margin-top: 1rem;
