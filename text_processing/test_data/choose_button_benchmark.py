@@ -1,8 +1,8 @@
 import time
 
-from text_processing.base_text_model import BaseTextModel
+from text_processing.buttons_prediction.base_button_predictor import BaseButtonPredictorModel
 from text_processing.llm import LLMModel
-from text_processing.word2vec import Word2VecModel
+from text_processing.buttons_prediction.word2vec_based_button_predictor import Word2VecButtonPredictorModel
 
 buttons = {
     "Частным клиентам": [],
@@ -59,7 +59,7 @@ base_functionality_benchmark = {
 assert all(value in buttons for value in base_functionality_benchmark.values())
 
 
-def test_model(model: BaseTextModel):
+def test_model(model: BaseButtonPredictorModel):
     start = time.time()
     formatted_buttons = []
     for i, button in enumerate(buttons):
@@ -81,5 +81,5 @@ def test_model(model: BaseTextModel):
     return score / len(base_functionality_benchmark), total
 
 
-print("Word2Vec model (score, time):", test_model(Word2VecModel()))
+print("Word2Vec model (score, time):", test_model(Word2VecButtonPredictorModel()))
 print("LLM model (score, time):", test_model(LLMModel()))

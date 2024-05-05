@@ -1,29 +1,11 @@
 import abc
 from typing import Dict, List
 
-import nltk
-import pymorphy2
 
-
-class BaseTextModel(abc.ABC):
-    def __init__(self):
-        if not nltk.data.find("tokenizers/punkt"):
-            nltk.download("punkt")
-        self.morph = pymorphy2.MorphAnalyzer()
-
+class BaseButtonPredictorModel(abc.ABC):
     @staticmethod
     def clear_text(text: str) -> str:
         return ''.join(el.lower() for el in text if el.isalpha() or el == ' ' or el.isdigit())
-
-    def add_part_of_speech(self, word: str) -> str:
-        analyze = self.morph.parse(word)[0]
-        speech_part = analyze.tag.POS
-        normal_form = analyze.normal_form.replace('ё', 'е')
-
-        if speech_part == "INFN":
-            speech_part = "VERB"
-
-        return f"{normal_form}_{speech_part}"
 
     @staticmethod
     def validate_buttons(buttons: List[Dict]):
