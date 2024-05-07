@@ -6,6 +6,5 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
-    <includeAll path="changelog/" relativeToChangelogFile="true"/>
+    <includeAll path="changelogs/" relativeToChangelogFile="true"/>
 </databaseChangeLog>

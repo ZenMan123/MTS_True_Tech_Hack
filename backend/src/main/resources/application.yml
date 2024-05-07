@@ -16,3 +16,6 @@ logging:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+server:
+  port: 8090
