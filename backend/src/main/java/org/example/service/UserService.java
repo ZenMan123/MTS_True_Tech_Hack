@@ -1,8 +1,10 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.PaymentDto;
 import org.example.dto.TransferMoneyRequest;
 import org.example.exception.InvalidRequestException;
+import org.example.repository.PaymentRepository;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private static final String TRANSFER = "Перевод";
+    private static final String RECEIPT = "Поступление";
     private final UserRepository userRepository;
+    private final PaymentRepository paymentRepository;
 
     @Transactional
     public void transferMoney(TransferMoneyRequest request) {
@@ -23,9 +28,17 @@ public class UserService {
         double toBalance = userRepository.getBalanceById(toId)
                 .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
 
-        validateTransferOperation(fromBalance, request.value());
-        userRepository.updateBalanceById(fromId, fromBalance - request.value());
-        userRepository.updateBalanceById(toId, toBalance + request.value());
+        double amount = request.value();
+        validateTransferOperation(fromBalance, amount);
+        userRepository.updateBalanceById(fromId, fromBalance - amount);
+        userRepository.updateBalanceById(toId, toBalance + amount);
+
+        paymentRepository.insertPayment(new PaymentDto(
+                fromId, amount, TRANSFER
+        ));
+        paymentRepository.insertPayment(new PaymentDto(
+                toId, amount, RECEIPT
+        ));
     }
 
     private void validateTransferOperation(double fromBalance, double value) {

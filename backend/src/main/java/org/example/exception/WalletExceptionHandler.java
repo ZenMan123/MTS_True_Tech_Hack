@@ -50,4 +50,18 @@ public class WalletExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ApiErrorResponse> invalidRequestHandler(InvalidRequestException ex) {
+        HttpStatus iAmATeapot = HttpStatus.I_AM_A_TEAPOT;
+        return ResponseEntity
+                .status(iAmATeapot)
+                .body(
+                        ApiErrorResponse.buildResponse(
+                                "Invalid request",
+                                iAmATeapot.toString(),
+                                ex.getCause()
+                        )
+                );
+    }
 }
