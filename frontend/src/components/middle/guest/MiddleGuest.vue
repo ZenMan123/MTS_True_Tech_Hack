@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="background">
     <IndexGuest v-if="page==='IndexGuest'"/>
     <Enter v-if="page==='Enter'"/>
     <Cards v-if="page==='Cards'"/>
@@ -42,5 +42,8 @@ export default {
 </template>
 
 <style scoped>
-
+.background{
+  background-color: #f2f3f7;
+  padding: 0 2.5rem;
+}
 </style>

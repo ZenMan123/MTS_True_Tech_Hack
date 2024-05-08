@@ -17,6 +17,7 @@ export default {
           <a href="#" @click.prevent>Установите МТС Банк на смартфон</a>
           <a href="#" @click.prevent>Без App Store и Google Play</a>
         </div>
+        <!-- <img src="C:\Users\olyac\Desktop\mts.svg" alt="\"> -->
       </div>
       
     </div>
@@ -42,9 +43,11 @@ export default {
     font-size: 12px;
     margin: 0;
   }
+
   ul {
     position: relative;
   }
+
   /* header .first-nav ul li */
   li {
     display: inline;
@@ -53,29 +56,37 @@ export default {
     color: var(--black-color);
     font-family: "Arial Narrow", sans-serif;
   }
+
   a {
     text-decoration: none;
     color: #626c77;
     font-size: 12px;
   }
+
   .footer {
+    padding: 0 2.5rem;
     background-color: #FFFFFF;
     margin: 2rem 0;
   }
+
   .footer div {
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
   }
+
   .footer_1{
     margin-bottom: 2rem;
   }
+
   .footer_1 div{
     flex-direction: column;
   }
+
   .footer_1_1{
     align-items: start;
   }
+  
   .footer_1_2 div{
     justify-content: space-around;
     align-items: flex-end;

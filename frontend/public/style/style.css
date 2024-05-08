@@ -25,8 +25,6 @@ body {
 @media (min-width: 1440px) {
     :root {
         font-size: 16px;
-        margin: 0 2.5rem;
-        padding: 0 2.5rem;
     }
 }
 
@@ -46,52 +44,6 @@ header {
     position: relative;
 }
 
-/*header .enter-or-register-box {*/
-/*    position: absolute;*/
-/*    top: 32px;*/
-/*    right: 0;*/
-/*}*/
-
-header .first-nav {
-    height: 5rem;
-    position: relative;
-}
-
-header .first-nav a {
-    position: absolute;
-    left: 0;
-}
-
-
-header .first-nav ul {
-    position: absolute;
-    left: 25%;
-    top: 3rem;
-    margin: 0;
-    padding: 0;
-}
-
-header .first-nav .enter-or-register-box {
-    position: absolute;
-    right: 3rem;
-    top: 3rem;
-}
-
-header .first-nav ul li {
-    display: inline;
-    margin-left: 1rem;
-    text-decoration: none;
-    color: var(--black-color);
-    font-family: "Arial Narrow", sans-serif;
-    font-weight: bold;
-}
-
-/* header nav {
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 0.75rem 0.25rem;
-    margin-top: 1rem;
-} */
 
 header nav ul {
     margin: 0;
@@ -103,10 +55,6 @@ header nav ul {
     overflow: auto;
 }
 
-
-main {
-    margin-right: 21rem;
-}
 
 footer {
     margin-top: 2rem;
