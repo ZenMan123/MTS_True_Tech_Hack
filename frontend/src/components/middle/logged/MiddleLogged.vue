@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="background">
     <IndexLogged v-if="page==='IndexLogged'" :userId="userId" :users="users"/>
     <Bank_products v-if="page==='Bank_products'"/>
     <History v-if="page==='History'"/>
@@ -33,5 +33,8 @@ export default {
 </template>
 
 <style scoped>
-
+.background{
+  background-color: #f2f3f7;
+  padding: 0 2.5rem;
+}
 </style>

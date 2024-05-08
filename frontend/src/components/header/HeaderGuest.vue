@@ -17,21 +17,21 @@ export default {
       </a>
     </div>
 
-    <div class="header_12">
-      <div class="header_1">
-        <div class="header_1_1">
+    <div class="header_up_down">
+      <div class="header_up">
+        <div class="header_up_company">
           <div class="face"><a href="#">Частным лицам</a></div>
           <div><a href="#">Малый бизнес и ИП</a></div>
           <div><a href="#">Корпоративный бизнес</a></div>
         </div>
 
-        <div class="header_1_2">
+        <div class="header_up_place">
           <div><a href="#">Офисы и банкоматы</a></div>
           <div class="city"><a href="#">Москва</a></div>
         </div>
       </div>
 
-      <div class="header_2">
+      <div class="header_down">
         <div>
           <nav>
             <ul>
@@ -77,13 +77,14 @@ li {
 .header {
   display: flex;
   flex-direction: row;
+  padding: 0 2.5rem;
 }
 
-.header_12 {
+.header_up_down {
   width: 100%;
 }
 
-.header_1 {
+.header_up {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -92,13 +93,13 @@ li {
   border-bottom: 1px solid rgb(226, 229, 235);
 }
 
-.header_1_1 {
+.header_up_company {
   display: flex;
   align-items: center;
   flex-direction: row;
 }
 
-.header_1_2 {
+.header_up_place {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -109,18 +110,18 @@ li {
   margin-left: 1.5rem;
 }
 
-.header_1_1 div {
+.header_up_company div {
   display: flex;
   align-items: center;
   margin-right: 1.5rem;
 }
 
-.header_1 div div {
+.header_up div div {
   padding: 1rem 0;
 }
 
 
-.header_2 {
+.header_down {
   display: grid;
   grid-area: 2 / 2 / auto / 4;
   grid-template-columns: 1fr max-content;
@@ -129,11 +130,11 @@ li {
   margin: 2rem 0;
 }
 
-.header_2 li {
+.header_down li {
   margin-right: 1.5rem;
 }
 
-.header_2 a {
+.header_down a {
   color: black;
   font-weight: 600;
 }

@@ -15,21 +15,26 @@ export default {
 </script>
 
 <template>
-  <div>
-    {{ users[userId].login }}
-    |
-    <div>
-      <a href="#" @click.prevent="changePage('IndexLogged')">
-        <img class="logo" src="../../assets/img/logoMtsBank.png" alt="MTS Bank" title="MTS Bank"/>
-      </a>
-      <div class="header_1">
-        <div class="customer"><a href="#">Частным клиентам</a></div>
-        <div class="line_vert"></div>
-        <div class="all_sites"><a href="">Все сайты</a></div>
-        <a class="button" href="#" @click.prevent="onLogout">Выйти</a>
+  
+    <div class="header">
+      <div class="header_up">
+        <div class="header_up_company">
+          <div class="customer"><a href="#">Частным клиентам</a></div>
+          <div class="line_vert"></div>
+          <div class="all_sites"><a href="">Все сайты</a></div>
+        </div>
+
+        <div class="header_up_profile">
+          {{ users[userId].login }}
+          <a class="button_leave" href="#" @click.prevent="onLogout">Выйти</a>
+        </div>
+       
       </div>
 
-      <div class="header_2">
+      <div class="header_down">
+        <a href="#" @click.prevent="changePage('IndexLogged')">
+          <img class="logo" src="../../assets/img/logoMtsBank.png" alt="MTS Bank" title="MTS Bank"/>
+        </a>
         <nav>
           <ul>
             <li><a href="#" @click.prevent="changePage('IndexLogged')">Главная</a></li>
@@ -41,7 +46,7 @@ export default {
         </nav>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <style scoped>
@@ -66,7 +71,7 @@ li {
 }
 
 .line_vert {
-  height: 26px;
+  height: 10px;
   margin: 0 20px;
   border-left: 1px solid #dcdcdc;
 }
@@ -76,57 +81,68 @@ li {
   font-size: 14px;
 }
 
-.header_1 {
+
+.header_up {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 2.5rem;
   flex-direction: row;
-  font-size: 13px;
-  border-bottom: 1px solid rgb(226, 229, 235);
+  font-size: 14px;
+  background-color: #f7f7f7;
 }
 
-.header_1_1 div {
+.header_up_company div {
   display: flex;
   align-items: center;
   margin-right: 1.5rem;
 }
 
-.header_1 div div {
+.header_up div div {
   padding: 1rem 0;
 }
 
-
-.header_2 {
-  display: grid;
-  grid-area: 2 / 2 / auto / 4;
-  grid-template-columns: 1fr max-content;
+.header_up_company {
+  display: flex;
   align-items: center;
-  font-size: 17px;
-  margin: 2rem 0;
 }
 
-.header_2 li {
+.header_up_profile{
+  display: flex;
+  align-items: center;
+}
+
+.header_down {
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  margin: 0.5rem 0;
+  padding: 0 2.5rem;
+}
+
+.header_down li {
   margin-right: 1.5rem;
 }
 
-.header_2 a {
+.header_down a {
   color: black;
   font-weight: 600;
 }
 
 .logo {
   max-width: 8rem;
-  margin-right: 5rem;
+  margin-right: 2rem;
   margin-top: 1rem;
 }
 
-.button {
+.button_leave {
   cursor: pointer;
   padding: 5px 30px;
   border: 1px solid #e30613;
   border-radius: 5px;
   color: #e30613;
   transition: .2s;
+  margin-left: 1rem;
 }
 
 </style>
