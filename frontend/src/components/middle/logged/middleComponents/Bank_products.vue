@@ -1,11 +1,11 @@
 <script>
 export default {
-  name: "Payments"
+  name: "Bank_products"
 }
 </script>
 
 <template>
-  <p>Payment</p>
+  <p>Bank_products</p>
 </template>
 
 <style scoped>
