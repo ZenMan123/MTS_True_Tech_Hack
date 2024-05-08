@@ -1,34 +1,18 @@
 <script>
-import Index from "@/components/middle/Index.vue";
-import Enter from "@/components/middle/Enter.vue";
-import Payments from "@/components/middle/Payments.vue";
-import Fees from "@/components/middle/Fees.vue";
-import History from "@/components/middle/History.vue";
+import MiddleGuest from "@/components/middle/guest/MiddleGuest.vue";
+import MiddleLogged from "@/components/middle/logged/MiddleLogged.vue";
 
 export default {
   name: "Middle",
-  props: ["user"],
-  components: {Index, Enter, Payments, Fees, History},
-  data: function () {
-    return {
-      page: "Index"
-    }
-  },
-  beforeCreate() {
-    this.$root.$on("onChangePage", (page) => {
-      this.page = page
-    })
-  }
+  props: ["userId", "users"],
+  components: {MiddleGuest, MiddleLogged},
 }
 </script>
 
 <template>
   <main>
-    <Index v-if="page==='Index'"/>
-    <Enter v-if="page==='Enter'"/>
-    <Payments v-if="page==='Payments'"/>
-    <Fees v-if="page==='Fees'"/>
-    <History v-if="page==='History'"/>
+    <MiddleLogged v-if="userId" :userId="userId" :users="users"/>
+    <MiddleGuest v-else/>
   </main>
 </template>
 

@@ -1,11 +1,13 @@
 <script>
 export default {
-  name: "Fees"
+  name: "Deposits_and_accounts"
 }
 </script>
 
 <template>
-  <p>Fees</p>
+  <div>
+    <p>Deposits_and_accounts</p>
+  </div>
 </template>
 
 <style scoped>

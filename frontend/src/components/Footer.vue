@@ -17,7 +17,6 @@ export default {
           <a href="#" @click.prevent>Установите МТС Банк на смартфон</a>
           <a href="#" @click.prevent>Без App Store и Google Play</a>
         </div>
-        <!-- <img src="C:\Users\olyac\Desktop\mts.svg" alt="\"> -->
       </div>
       
     </div>
