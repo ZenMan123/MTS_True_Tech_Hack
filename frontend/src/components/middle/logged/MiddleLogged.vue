@@ -8,7 +8,7 @@ import Payment from "@/components/middle/logged/middleComponents/Payment.vue";
 export default {
   name: "MiddleLogged",
   components: {IndexLogged, Bank_products, History, Offers, Payment},
-  props: ["userId", "users"],
+  props: ["user"],
   data: function () {
     return {
       page: "IndexGuest"
@@ -24,7 +24,7 @@ export default {
 
 <template>
   <div class="background">
-    <IndexLogged v-if="page==='IndexLogged'" :userId="userId" :users="users"/>
+    <IndexLogged v-if="page==='IndexLogged'" :user="user"/>
     <Bank_products v-if="page==='Bank_products'"/>
     <History v-if="page==='History'"/>
     <Offers v-if="page==='Offers'"/>

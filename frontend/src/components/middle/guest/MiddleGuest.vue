@@ -12,7 +12,7 @@ import Private from "@/components/middle/guest/middleComponents/Private.vue";
 export default {
   name: "MiddleGuest",
   components: {IndexGuest, Enter, Cards, Credits, Deposits_and_accounts, Investment, Mortgage, Premium, Private},
-  props: ["userId", "users"],
+  props: ["user"],
   data: function () {
     return {
       page: "IndexGuest"

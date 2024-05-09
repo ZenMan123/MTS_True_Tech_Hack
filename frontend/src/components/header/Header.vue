@@ -1,7 +1,7 @@
 <template>
   <div class="enter-or-register-box">
-    <template v-if="userId">
-      <HeaderLogged :userId="userId" :users="users"/>
+    <template v-if="user">
+      <HeaderLogged :user="user"/>
     </template>
     <template v-else>
       <HeaderGuest/>
@@ -15,7 +15,7 @@ import HeaderLogged from "@/components/header/HeaderLogged.vue";
 
 export default {
   name: "Header",
-  props: ["userId", "users"],
+  props: ["user"],
   components: {HeaderGuest, HeaderLogged}
 }
 </script>
