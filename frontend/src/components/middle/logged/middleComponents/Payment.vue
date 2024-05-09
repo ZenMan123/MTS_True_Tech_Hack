@@ -1,7 +1,19 @@
 <script>
+import Payments from "@/components/middle/logged/middleComponents/payment/Payments.vue";
+import Transactions from "@/components/middle/logged/middleComponents/payment/Transactions.vue";
+
 export default {
   name: "Payment",
-  props: ["user"]
+  props: ["user"],
+  components: {Payments, Transactions},
+  data() {
+    return {type: null};
+  },
+  methods: {
+    changeType(type) {
+      this.type = type;
+    }
+  }
 }
 </script>
 
@@ -36,8 +48,13 @@ export default {
       </div>
       <div class="payments_or_transfers">
         <div class="buttons">
-          <div>Платежи</div>
-          <div>Переводы</div>
+          <div>
+            <a href="#" @click="changeType('Payments')">Платежи</a>
+            <a href="#" @click="changeType('Transactions')">Переводы</a>
+          </div>
+          <div>
+            <component :is="type"></component>
+          </div>
         </div>
 
       </div>
