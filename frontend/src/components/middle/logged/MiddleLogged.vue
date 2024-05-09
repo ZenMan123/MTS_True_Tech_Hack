@@ -11,7 +11,7 @@ export default {
   props: ["user"],
   data: function () {
     return {
-      page: "IndexGuest"
+      page: "IndexLogged"
     }
   },
   beforeCreate() {
@@ -28,7 +28,7 @@ export default {
     <Bank_products v-if="page==='Bank_products'"/>
     <History v-if="page==='History'"/>
     <Offers v-if="page==='Offers'"/>
-    <Payment v-if="page==='Payment'"/>
+    <Payment v-if="page==='Payment'" :user="user"/>
   </div>
 </template>
 
