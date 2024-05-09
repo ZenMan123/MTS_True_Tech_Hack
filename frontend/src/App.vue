@@ -31,11 +31,11 @@ export default {
         this.$root.$emit("onEnterValidationError", "Login is required");
         return;
       }
-      alert(phoneNumber)
       axios.post("/api/jwts", {
         phoneNumber
       }).then(response => {
-        alert(response.data)
+        localStorage.setItem("jwt", response.data);
+        this.$root.$emit("onJwt", response.data);
       }).catch(error => {
         if (error.response.status === 400) {
           this.$root.$emit("onEnterValidationError", error.response.data);
@@ -43,19 +43,30 @@ export default {
           this.$root.$emit("onEnterValidationError", "Unexpected error. Please, try again.");
         }
       })
-      // const users = Object.values(this.users).filter(u => u.login === login);
-      // if (users.length === 0) {
-      //   this.$root.$emit("onEnterValidationError", "No such user");
-      // } else {
-      //   this.user = users[0];
-      //   this.$root.$emit("onChangePage", "IndexLogged");
-      // }
     });
 
-    this.$root.$on("onLogout", () => this.user = null);
+    this.$root.$on("onJwt", (jwt) => {
+      localStorage.setItem("jwt", jwt);
+
+      axios.get("/api/users/auth", {
+        params: {
+          jwt
+        }
+      }).then(response => {
+        this.user = response.data;
+        this.$root.$emit("onChangePage", "IndexLogged");
+      }).catch(() => this.$root.$emit("onLogout"))
+    });
+
+    this.$root.$on("onLogout", () => {
+      localStorage.removeItem("jwt");
+      this.user = null;
+    });
   },
   beforeMount() {
-
+    if (localStorage.getItem("jwt") && !this.user) {
+      this.$root.$emit("onJwt", localStorage.getItem("jwt"));
+    }
   }
 }
 </script>
