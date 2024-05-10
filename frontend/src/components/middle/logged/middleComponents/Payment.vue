@@ -1,6 +1,19 @@
 <script>
+import Payments from "@/components/middle/logged/middleComponents/payment/Payments.vue";
+import Transactions from "@/components/middle/logged/middleComponents/payment/Transactions.vue";
+
 export default {
-  name: "Payment"
+  name: "Payment",
+  props: ["user"],
+  components: {Payments, Transactions},
+  data() {
+    return {type: null};
+  },
+  methods: {
+    changeType(type) {
+      this.type = type;
+    }
+  }
 }
 </script>
 
@@ -9,7 +22,7 @@ export default {
     <div class="user_data">
       <div class="my_phone">
         <div class="title_2">Мой телефон</div>
-        <!-- <div>{{ users[userId].login }}</div> -->
+        <div>{{ user.phoneNumber }}</div>
       </div>
       <div class="cards">
         <div class="title_2">Карты</div>
@@ -19,7 +32,7 @@ export default {
         </div>
         <div class="my_wallet">
           <div>Мой кошелек</div>
-          <div>0 руб.</div>
+          <div>{{ user.balance }} руб.</div>
         </div>
         <div class="offer_link_card">Привязать карту другого банка</div>
       </div>
@@ -35,37 +48,46 @@ export default {
       </div>
       <div class="payments_or_transfers">
         <div class="buttons">
-          <div>Платежи</div>
-          <div>Переводы</div>
+          <div>
+            <a href="#" @click="changeType('Payments')">Платежи</a>
+            <a href="#" @click="changeType('Transactions')">Переводы</a>
+          </div>
+          <div>
+            <component :is="type"></component>
+          </div>
         </div>
 
       </div>
-      
+
     </div>
-  </div>  
+  </div>
 </template>
 
 <style scoped>
-.title_1{
+.title_1 {
   font-size: 32px;
   font-weight: 800;
 }
-.title_2{
+
+.title_2 {
   font-size: 20px;
   font-weight: 600;
 }
-.body_page{
+
+.body_page {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   max-width: 100vw;
   grid-column-gap: 52px;
   padding: 4rem 0;
 }
-.user_data{
+
+.user_data {
   display: flex;
   grid-column: 1 / 4;
   flex-direction: column;
 }
+
 .user_data div {
   display: flex;
   flex-direction: column;
@@ -77,22 +99,27 @@ export default {
   cursor: pointer;
   align-items: inherit;
 }
-.my_phone{
+
+.my_phone {
   padding: 1.5rem;
 }
-.cards{
+
+.cards {
   padding: 1.5rem;
 
 }
-.loans{
+
+.loans {
   padding: 1.5rem;
 
 }
-.my_card div{
+
+.my_card div {
   margin: 0;
   padding: 0.5rem 0;
 }
-.elements_of_main_page{
+
+.elements_of_main_page {
   display: flex;
   flex-direction: column;
   grid-column: 4 / 13;
