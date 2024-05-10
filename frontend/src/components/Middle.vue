@@ -4,14 +4,14 @@ import MiddleLogged from "@/components/middle/logged/MiddleLogged.vue";
 
 export default {
   name: "Middle",
-  props: ["userId", "users"],
+  props: ["user"],
   components: {MiddleGuest, MiddleLogged},
 }
 </script>
 
 <template>
   <main>
-    <MiddleLogged v-if="userId" :userId="userId" :users="users"/>
+    <MiddleLogged v-if="user" :user="user"/>
     <MiddleGuest v-else/>
   </main>
 </template>

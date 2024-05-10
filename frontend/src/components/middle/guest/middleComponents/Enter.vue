@@ -33,7 +33,7 @@ export default {
           <input type="submit" value="Далее">
         </div>
         </div>
-        <!-- <div class="field error">{{ error }}</div> -->
+         <div class="field error">{{ error }}</div>
         
       </form>
     </div>

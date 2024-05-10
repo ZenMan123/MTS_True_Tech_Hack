@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PaymentDto;
 import org.example.dto.TransferMoneyRequest;
 import org.example.exception.InvalidRequestException;
+import org.example.model.User;
 import org.example.repository.PaymentRepository;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,13 @@ public class UserService {
 
     public double getBalance(long id) {
         return userRepository.getBalanceById(id).orElseThrow(InvalidRequestException::new);
+    }
+
+    public User findByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber).orElse(null);
+    }
+
+    public User findById(long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

@@ -1,7 +1,7 @@
 <script>
 export default {
   name: "HeaderLogged",
-  props: ["userId", "users"],
+  props: ["user"],
   methods: {
     changePage: function (page) {
       this.$root.$emit("onChangePage", page);
@@ -25,7 +25,7 @@ export default {
         </div>
 
         <div class="header_up_profile">
-          {{ users[userId].login }}
+          {{ user.phoneNumber }}
           <a class="button_leave" href="#" @click.prevent="onLogout">Выйти</a>
         </div>
        
