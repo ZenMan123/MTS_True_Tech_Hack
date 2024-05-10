@@ -26,14 +26,14 @@ export default {
   <div class="background">
     <IndexLogged v-if="page==='IndexLogged'" :user="user"/>
     <Bank_products v-if="page==='Bank_products'"/>
-    <History v-if="page==='History'"/>
+    <History v-if="page==='History'" :user="user"/>
     <Offers v-if="page==='Offers'"/>
     <Payment v-if="page==='Payment'" :user="user"/>
   </div>
 </template>
 
 <style scoped>
-.background{
+.background {
   background-color: #f2f3f7;
   padding: 0 2.5rem;
 }

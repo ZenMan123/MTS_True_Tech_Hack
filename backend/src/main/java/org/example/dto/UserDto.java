@@ -3,6 +3,9 @@ package org.example.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.example.model.Payment;
+
+import java.util.List;
 
 public record UserDto(
         @JsonProperty("name")
@@ -17,6 +20,7 @@ public record UserDto(
         String phoneNumber,
         @JsonProperty("balance")
         @NotBlank
-        double balance
+        double balance,
+        List<PaymentDto> payments
 ) {
 }

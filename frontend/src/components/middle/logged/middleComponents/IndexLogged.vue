@@ -7,8 +7,9 @@ export default {
 
 <template>
   <div>
-    <p>Телефон: {{ user.phoneNumber }}</p>
+    <p>Телефон: {{ user.phone_number }}</p>
     <p>Баланс: {{ user.balance }}</p>
+    <p> История: {{ user.payments}}</p>
   </div>
 </template>
 

@@ -1,15 +1,11 @@
 package org.example.controller;
 
 
+import org.example.dto.UserDto;
 import org.example.model.User;
 import org.example.service.JwtService;
 import org.example.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -23,7 +19,8 @@ public class UserController {
     }
 
     @GetMapping("users/auth")
-    public User findUserByJwt(@RequestParam String jwt) {
+    @CrossOrigin
+    public UserDto findUserByJwt(@RequestParam String jwt) {
         return jwtService.find(jwt);
     }
 }

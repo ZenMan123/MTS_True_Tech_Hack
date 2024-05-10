@@ -4,12 +4,12 @@ import jakarta.validation.Valid;
 import org.example.exception.ValidationException;
 import org.example.form.UserCredentials;
 import org.example.form.validator.UserCredentialsEnterValidator;
+import org.example.model.User;
 import org.example.service.JwtService;
 import org.example.service.UserService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.example.model.User;
 
 @RestController
 @RequestMapping("/api/")
@@ -30,6 +30,7 @@ public class JwtController {
     }
 
     @PostMapping("jwts")
+    @CrossOrigin
     public String create(@RequestBody @Valid UserCredentials userCredentials, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationException(bindingResult);

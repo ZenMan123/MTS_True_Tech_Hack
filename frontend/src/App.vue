@@ -28,17 +28,21 @@ export default {
 // <td>{{ payment.date }}</td>
   data: function () {
     return {
-      user: {phoneNumber: '88005553535', balance: '500', payments: [{type: 'Перевод', user_id: '1', amount: '500', date: '09.05.2024'}]}
+      user: {
+        phone_number: '88005553535',
+        balance: '500',
+        payments: [{type: 'Перевод', user_id: '1', amount: '500', date: '09.05.2024'}]
+      }
     }
   },
   beforeCreate() {
-    this.$root.$on("onEnter", (phoneNumber) => {
-      if (phoneNumber === "") {
+    this.$root.$on("onEnter", (phone_number) => {
+      if (phone_number === "") {
         this.$root.$emit("onEnterValidationError", "Login is required");
         return;
       }
-      axios.post("/api/jwts", {
-        phoneNumber
+      axios.post("http://localhost:8090/api/jwts", {
+        phone_number
       }).then(response => {
         localStorage.setItem("jwt", response.data);
         this.$root.$emit("onJwt", response.data);
@@ -54,7 +58,7 @@ export default {
     this.$root.$on("onJwt", (jwt) => {
       localStorage.setItem("jwt", jwt);
 
-      axios.get("/api/users/auth", {
+      axios.get("http://localhost:8090/api/users/auth", {
         params: {
           jwt
         }

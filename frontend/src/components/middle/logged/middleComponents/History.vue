@@ -24,11 +24,9 @@ export default {
       <table>
         <thead>
         <tr>
-          <th>Категория</th>
-          <th>Параметр оплаты</th>
+          <th>Тип платежа</th>
           <th>Сумма</th>
           <th>Дата и время</th>
-          <th>Статус</th>
         </tr>
         </thead>
         <tbody>
@@ -36,14 +34,11 @@ export default {
           <td>
             <div class="category">
               <img src="../../../../assets/img/logoMtsBank.png" alt="logo">
-              МС*0525 ->
               {{ payment.type }}
             </div>
           </td>
-          <td>{{ payment.user_id }}</td>
           <td>{{ payment.amount }}</td>
           <td>{{ payment.date }}</td>
-          <td>Успешно</td>
         </tr>
         </tbody>
       </table>
@@ -55,6 +50,7 @@ export default {
 .print img {
   max-width: 4rem;
 }
+
 .content img {
   max-width: 5rem;
 }
