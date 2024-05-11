@@ -17,6 +17,10 @@ html {
     min-width: 600px;
     /* max-width: 1280px; */
     margin: 0 auto;
+    color: #333;
+}
+html a{
+    text-decoration: none;
 }
 body {
     margin: 0;

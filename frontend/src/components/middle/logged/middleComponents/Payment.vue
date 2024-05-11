@@ -42,9 +42,8 @@ export default {
       </div>
     </div>
     <div class="elements_of_main_page">
-      <div>
+      <div class="title">
         <div class="title_1">Платежи и переводы</div>
-        <div></div>
       </div>
       <div class="payments_or_transfers">
         <div class="buttons">
@@ -52,11 +51,25 @@ export default {
             <a href="#" @click="changeType('Payments')">Платежи</a>
             <a href="#" @click="changeType('Transactions')">Переводы</a>
           </div>
-          <div>
-            <component :is="type"></component>
-          </div>
         </div>
-
+        <div>
+            <component :is="type"></component>
+            <!-- <div class="card payment">
+              <div>Мобильный телефон</div>
+              <div>Госуслуги, штрафы, налоги</div>
+              <div>ЖКХ, кварплата</div>
+              <div>Погашение кредитов</div>
+              <div>Интернет и ТВ, Телефония</div>
+              <div>Образование</div>
+            </div> -->
+            <div class="card transactions">
+              <div>По номеру телефона</div>
+              <div>По номеру карты</div>
+              <div>Между своими счетами</div>
+              <div>За рубеж</div>
+              <div>По реквизитам</div>
+            </div>
+          </div>
       </div>
 
     </div>
@@ -64,6 +77,9 @@ export default {
 </template>
 
 <style scoped>
+.title {
+  margin-bottom: 1rem;
+}
 .title_1 {
   font-size: 32px;
   font-weight: 800;
@@ -87,8 +103,13 @@ export default {
   grid-column: 1 / 4;
   flex-direction: column;
 }
-
-.user_data div {
+.card {
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 24px;
+    gap: 24px;
+}
+.user_data div, .card div {
   display: flex;
   flex-direction: column;
   width: inherit;
@@ -100,18 +121,8 @@ export default {
   align-items: inherit;
 }
 
-.my_phone {
+.my_phone, .cards, .loans, .card div{
   padding: 1.5rem;
-}
-
-.cards {
-  padding: 1.5rem;
-
-}
-
-.loans {
-  padding: 1.5rem;
-
 }
 
 .my_card div {
@@ -123,5 +134,19 @@ export default {
   display: flex;
   flex-direction: column;
   grid-column: 4 / 13;
+}
+
+.buttons {
+  margin: 2rem 0;
+}
+
+.buttons a {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: black;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 20px;
 }
 </style>

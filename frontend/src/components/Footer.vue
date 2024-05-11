@@ -52,13 +52,11 @@ export default {
   li {
     display: inline;
     margin-left: 1rem;
-    text-decoration: none;
     color: var(--black-color);
     font-family: "Arial Narrow", sans-serif;
   }
 
   a {
-    text-decoration: none;
     color: #626c77;
     font-size: 12px;
   }
