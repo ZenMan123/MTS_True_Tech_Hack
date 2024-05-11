@@ -5,10 +5,12 @@ from speech_processing.speech_to_text import SpeechToText
 from text_processing.buttons_prediction.llm_based_button_predictor import LlmBasedButtonPredictor
 from text_processing.llm import phi_3_model
 from text_processing.task_dialogue import TaskDialogueModel
+from text_processing.text_classifier.text_classifier import TextClassifier
 
 app = Flask(__name__)
 speech_to_text_model = SpeechToText()
 button_predictor_model = LlmBasedButtonPredictor(phi_3_model)
+text_classify_model = TextClassifier()
 
 
 def get_text_from_audio():
@@ -17,6 +19,20 @@ def get_text_from_audio():
     audio_bytes = audio_file.read()
     text = ' '.join(speech_to_text_model.recognize_wav_bytes(audio_bytes))
     return text
+
+
+@app.route('/api/classify_request', methods=["GET"])
+def classify_request():
+    text = get_text_from_audio()
+
+    category = text_classify_model.classify_feedback(text)
+
+    result = {
+        "status": "OK",
+        "category": category,
+    }
+
+    return jsonify(result)
 
 
 @app.route('/api/continue_dialogue', methods=["GET"])
