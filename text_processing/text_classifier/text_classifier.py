@@ -2,7 +2,7 @@ from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 import torch
 
-from text_processing.config import EXAMPLES
+from text_processing.config import EXAMPLES, THRESHOLD
 
 
 class TextClassifier:
@@ -31,7 +31,7 @@ class TextClassifier:
             cosine_similarity = F.cosine_similarity(comment_vector, vector, dim=1).item()
             distances[category] = cosine_similarity
         max_category = max(distances, key=distances.get)
-        if distances[max_category] > 0.5:
+        if distances[max_category] > THRESHOLD:
             return max_category
         else:
             return "другое"
