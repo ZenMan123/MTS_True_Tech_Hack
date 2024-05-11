@@ -56,13 +56,11 @@ export default {
 <style scoped>
 
 a {
-  text-decoration: none;
   color: rgb(150, 159, 168);
 }
 
 li {
   display: inline;
-  text-decoration: none;
   color: var(--black-color);
   font-family: "Arial Narrow", sans-serif;
 }
