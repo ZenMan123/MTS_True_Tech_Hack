@@ -29,6 +29,7 @@ export default {
   data: function () {
     return {
       user: {
+        userId: 11011,
         phone_number: '88005553535',
         balance: '500',
         payments: [{type: 'Перевод', user_id: '1', amount: '500', date: '09.05.2024'}]

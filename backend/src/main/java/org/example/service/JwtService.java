@@ -50,7 +50,9 @@ public class JwtService {
                         return new PaymentDto(payment.getUser_id(), payment.getAmount(), payment.getType(), date);
                     })
                     .toList();
-            return new UserDto(user.getName(),
+            return new UserDto(
+                    user.getId(),
+                    user.getName(),
                     user.getSurname(),
                     user.getPhoneNumber(),
                     user.getBalance(),

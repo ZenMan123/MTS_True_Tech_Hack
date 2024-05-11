@@ -8,6 +8,8 @@ import org.example.model.Payment;
 import java.util.List;
 
 public record UserDto(
+        @JsonProperty("userId")
+        long userId,
         @JsonProperty("name")
         @NotBlank
         String name,

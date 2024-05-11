@@ -1,8 +1,26 @@
 <script>
+import axios from 'axios';
+
 export default {
   name: "History",
   props: ["user"],
-}
+  data() {
+    return {
+      payments: [],
+    };
+  },
+  mounted() {
+    axios.get('/getHistory', {
+      params: { userId: this.user.userId }
+    })
+        .then(response => {
+          this.payments = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching payment history:', error);
+        });
+  }
+};
 </script>
 
 <template>
@@ -30,7 +48,7 @@ export default {
         </tr>
         </thead>
         <tbody>
-        <tr v-for="payment in user.payments" :key="payment.date">
+        <tr v-for="payment in payments" :key="payment.date">
           <td>
             <div class="category">
               <img src="../../../../assets/img/logoMtsBank.png" alt="logo">

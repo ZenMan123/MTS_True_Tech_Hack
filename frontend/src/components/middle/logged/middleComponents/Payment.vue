@@ -1,18 +1,37 @@
 <script>
 import Payments from "@/components/middle/logged/middleComponents/payment/Payments.vue";
 import Transactions from "@/components/middle/logged/middleComponents/payment/Transactions.vue";
+import axios from 'axios'; // Import axios for making HTTP requests
 
 export default {
   name: "Payment",
   props: ["user"],
   components: {Payments, Transactions},
   data() {
-    return {type: null};
+    return {
+      type: null,
+      balance: null // Add a new data property to store the wallet balance
+    };
   },
   methods: {
     changeType(type) {
       this.type = type;
+    },
+    fetchBalance() {
+      axios.get('/getBalance', { // Use axios.get
+        params: {userId: this.user.userId} // Pass user ID as a parameter
+      })
+          .then(response => {
+            this.balance = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching balance:', error);
+          });
     }
+  },
+  mounted() {
+    // Fetch the wallet balance when the component is mounted
+    this.fetchBalance();
   }
 }
 </script>
@@ -32,7 +51,8 @@ export default {
         </div>
         <div class="my_wallet">
           <div>Мой кошелек</div>
-          <div>{{ user.balance }} руб.</div>
+          <div v-if="balance !== null">{{ balance }} руб.</div>
+          <div v-else>Загрузка баланса...</div>
         </div>
         <div class="offer_link_card">Привязать карту другого банка</div>
       </div>
@@ -53,7 +73,7 @@ export default {
             <a href="#" @click="changeType('Transactions')">Переводы</a>
           </div>
           <div>
-            <component :is="type"></component>
+            <component :is="type" :user="user"></component>
           </div>
         </div>
 
