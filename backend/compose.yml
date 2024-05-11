@@ -26,7 +26,16 @@ services:
       - ./migrations:/liquibase/changelog
     networks:
       - backend
-
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresql
+    ports:
+      - "8090:8090"
+    networks:
+      - backend
 
 volumes:
   postgresql: { }
