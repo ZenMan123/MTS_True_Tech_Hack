@@ -1,18 +1,37 @@
 <script>
 import Payments from "@/components/middle/logged/middleComponents/payment/Payments.vue";
 import Transactions from "@/components/middle/logged/middleComponents/payment/Transactions.vue";
+import axios from 'axios'; // Import axios for making HTTP requests
 
 export default {
   name: "Payment",
   props: ["user"],
   components: {Payments, Transactions},
   data() {
-    return {type: null};
+    return {
+      type: null,
+      balance: null // Add a new data property to store the wallet balance
+    };
   },
   methods: {
     changeType(type) {
       this.type = type;
+    },
+    fetchBalance() {
+      axios.get('/getBalance', { // Use axios.get
+        params: {userId: this.user.userId} // Pass user ID as a parameter
+      })
+          .then(response => {
+            this.balance = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching balance:', error);
+          });
     }
+  },
+  mounted() {
+    // Fetch the wallet balance when the component is mounted
+    this.fetchBalance();
   }
 }
 </script>
@@ -22,7 +41,7 @@ export default {
     <div class="user_data">
       <div class="my_phone">
         <div class="title_2">Мой телефон</div>
-        <div>{{ user.phoneNumber }}</div>
+        <div>{{ user.phone_number }}</div>
       </div>
       <div class="cards">
         <div class="title_2">Карты</div>
@@ -32,7 +51,8 @@ export default {
         </div>
         <div class="my_wallet">
           <div>Мой кошелек</div>
-          <div>{{ user.balance }} руб.</div>
+          <div v-if="balance !== null">{{ balance }} руб.</div>
+          <div v-else>Загрузка баланса...</div>
         </div>
         <div class="offer_link_card">Привязать карту другого банка</div>
       </div>
@@ -42,8 +62,9 @@ export default {
       </div>
     </div>
     <div class="elements_of_main_page">
-      <div class="title">
+      <div>
         <div class="title_1">Платежи и переводы</div>
+        <div></div>
       </div>
       <div class="payments_or_transfers">
         <div class="buttons">
@@ -51,25 +72,11 @@ export default {
             <a href="#" @click="changeType('Payments')">Платежи</a>
             <a href="#" @click="changeType('Transactions')">Переводы</a>
           </div>
-        </div>
-        <div>
-            <component :is="type"></component>
-            <!-- <div class="card payment">
-              <div>Мобильный телефон</div>
-              <div>Госуслуги, штрафы, налоги</div>
-              <div>ЖКХ, кварплата</div>
-              <div>Погашение кредитов</div>
-              <div>Интернет и ТВ, Телефония</div>
-              <div>Образование</div>
-            </div> -->
-            <div class="card transactions">
-              <div>По номеру телефона</div>
-              <div>По номеру карты</div>
-              <div>Между своими счетами</div>
-              <div>За рубеж</div>
-              <div>По реквизитам</div>
-            </div>
+          <div>
+            <component :is="type" :user="user"></component>
           </div>
+        </div>
+
       </div>
 
     </div>
@@ -77,9 +84,6 @@ export default {
 </template>
 
 <style scoped>
-.title {
-  margin-bottom: 1rem;
-}
 .title_1 {
   font-size: 32px;
   font-weight: 800;
@@ -103,13 +107,8 @@ export default {
   grid-column: 1 / 4;
   flex-direction: column;
 }
-.card {
-  display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 24px;
-    gap: 24px;
-}
-.user_data div, .card div {
+
+.user_data div {
   display: flex;
   flex-direction: column;
   width: inherit;
@@ -121,8 +120,18 @@ export default {
   align-items: inherit;
 }
 
-.my_phone, .cards, .loans, .card div{
+.my_phone {
   padding: 1.5rem;
+}
+
+.cards {
+  padding: 1.5rem;
+
+}
+
+.loans {
+  padding: 1.5rem;
+
 }
 
 .my_card div {
@@ -134,19 +143,5 @@ export default {
   display: flex;
   flex-direction: column;
   grid-column: 4 / 13;
-}
-
-.buttons {
-  margin: 2rem 0;
-}
-
-.buttons a {
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  background-color: black;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  border-radius: 20px;
 }
 </style>

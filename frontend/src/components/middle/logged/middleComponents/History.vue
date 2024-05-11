@@ -1,8 +1,26 @@
 <script>
+import axios from 'axios';
+
 export default {
   name: "History",
   props: ["user"],
-}
+  data() {
+    return {
+      payments: [],
+    };
+  },
+  mounted() {
+    axios.get('/getHistory', {
+      params: { userId: this.user.userId }
+    })
+        .then(response => {
+          this.payments = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching payment history:', error);
+        });
+  }
+};
 </script>
 
 <template>
@@ -24,26 +42,21 @@ export default {
       <table>
         <thead>
         <tr>
-          <th>Категория</th>
-          <th>Параметр оплаты</th>
+          <th>Тип платежа</th>
           <th>Сумма</th>
           <th>Дата и время</th>
-          <th>Статус</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="payment in user.payments" :key="payment.date">
+        <tr v-for="payment in payments" :key="payment.date">
           <td>
             <div class="category">
               <img src="../../../../assets/img/logoMtsBank.png" alt="logo">
-              МС*0525 ->
               {{ payment.type }}
             </div>
           </td>
-          <td>{{ payment.user_id }}</td>
           <td>{{ payment.amount }}</td>
           <td>{{ payment.date }}</td>
-          <td>Успешно</td>
         </tr>
         </tbody>
       </table>
@@ -55,6 +68,7 @@ export default {
 .print img {
   max-width: 4rem;
 }
+
 .content img {
   max-width: 5rem;
 }

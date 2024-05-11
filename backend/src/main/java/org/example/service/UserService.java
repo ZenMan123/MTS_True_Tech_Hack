@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PaymentDto;
 import org.example.dto.TransferMoneyRequest;
 import org.example.exception.InvalidRequestException;
+import org.example.model.Payment;
 import org.example.model.User;
 import org.example.repository.PaymentRepository;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,10 +38,10 @@ public class UserService {
         userRepository.updateBalanceById(toId, toBalance + amount);
 
         paymentRepository.insertPayment(new PaymentDto(
-                fromId, amount, TRANSFER
+                fromId, amount, TRANSFER, ""
         ));
         paymentRepository.insertPayment(new PaymentDto(
-                toId, amount, RECEIPT
+                toId, amount, RECEIPT, ""
         ));
     }
 
@@ -58,5 +61,9 @@ public class UserService {
 
     public User findById(long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public List<Payment> getPayments(Long id) {
+        return paymentRepository.findLastPaymentsById(id, 10);
     }
 }

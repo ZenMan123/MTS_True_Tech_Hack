@@ -25,7 +25,7 @@ export default {
         </div>
 
         <div class="header_up_profile">
-          {{ user.phoneNumber }}
+          {{ user.phone_number }}
           <a class="button_leave" href="#" @click.prevent="onLogout">Выйти</a>
         </div>
        

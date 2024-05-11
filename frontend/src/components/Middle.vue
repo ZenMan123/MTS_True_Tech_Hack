@@ -8,7 +8,6 @@ export default {
   components: {MiddleGuest, MiddleLogged},
 }
 </script>
-
 <template>
   <main>
     <MiddleLogged v-if="user" :user="user"/>

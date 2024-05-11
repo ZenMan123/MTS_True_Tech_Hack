@@ -20,21 +20,33 @@ export default {
     Middle,
     Header
   },
+// {{ payment.type }}
+// </div>
+// </td>
+// <td>{{ payment.user_id }}</td>
+// <td>{{ payment.amount }}</td>
+// <td>{{ payment.date }}</td>
   data: function () {
     return {
-      user: null
+      user: {
+        userId: 11011,
+        phone_number: '88005553535',
+        balance: '500',
+        payments: [{type: 'Перевод', user_id: '1', amount: '500', date: '09.05.2024'}]
+      }
     }
   },
   beforeCreate() {
-    this.$root.$on("onEnter", (phoneNumber) => {
-      if (phoneNumber === "") {
-        this.$root.$emit("onEnterValidationError", "Number is required");
+    this.$root.$on("onEnter", (phone_number) => {
+      if (phone_number === "") {
+        this.$root.$emit("onEnterValidationError", "Login is required");
         return;
       }
-      axios.post("/api/jwts", {
-        phoneNumber
+      axios.post("http://localhost:8090/api/jwts", {
+        phone_number
       }).then(response => {
-        this.$root.$emit("onJwt", response.data, true);
+        localStorage.setItem("jwt", response.data);
+        this.$root.$emit("onJwt", response.data);
       }).catch(error => {
         if (error.response.status === 400) {
           this.$root.$emit("onEnterValidationError", error.response.data);
@@ -44,21 +56,17 @@ export default {
       })
     });
 
-    this.$root.$on("onJwt", (jwt, indexRedirect) => {
+    this.$root.$on("onJwt", (jwt) => {
       localStorage.setItem("jwt", jwt);
-      axios.get("/api/users/jwt", {
+
+      axios.get("http://localhost:8090/api/users/auth", {
         params: {
           jwt
         }
       }).then(response => {
         this.user = response.data;
-        if(indexRedirect) {
-          this.$root.$emit("onChangePage", "IndexLogged");
-        }
-      }).catch((e) => {
-        alert(e)
-        this.$root.$emit("onLogout")
-      })
+        this.$root.$emit("onChangePage", "IndexLogged");
+      }).catch(() => this.$root.$emit("onLogout"))
     });
 
     this.$root.$on("onLogout", () => {
@@ -68,7 +76,7 @@ export default {
   },
   beforeMount() {
     if (localStorage.getItem("jwt") && !this.user) {
-      this.$root.$emit("onJwt", localStorage.getItem("jwt"), false);
+      this.$root.$emit("onJwt", localStorage.getItem("jwt"));
     }
   }
 }
@@ -79,5 +87,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 }
 </style>

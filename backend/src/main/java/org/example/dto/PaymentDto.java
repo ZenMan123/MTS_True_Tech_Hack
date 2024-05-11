@@ -10,6 +10,7 @@ public record PaymentDto(
         @JsonProperty("amount")
         double amount,
         @JsonProperty("type")
-        String type
+        String type,
+        String date
 ) {
 }

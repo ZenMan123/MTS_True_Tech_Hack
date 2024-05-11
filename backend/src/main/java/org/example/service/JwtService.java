@@ -6,8 +6,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.example.dto.PaymentDto;
+import org.example.dto.UserDto;
 import org.example.model.User;
 import org.springframework.stereotype.Service;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class JwtService {
@@ -27,16 +32,32 @@ public class JwtService {
             return JWT.create()
                     .withClaim("userId", user.getId())
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Can't create JWT.");
         }
     }
 
-    public User find(String jwt) {
+    public UserDto find(String jwt) {
         try {
             DecodedJWT decodedJwt = verifier.verify(jwt);
-            return userService.findById(decodedJwt.getClaim("userId").asLong());
-        } catch (JWTVerificationException exception){
+            Long id = decodedJwt.getClaim("userId").asLong();
+            User user = userService.findById(id);
+            List<PaymentDto> paymentList = userService.getPayments(id)
+                    .stream()
+                    .map(payment -> {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+                        String date = payment.getDate().format(formatter);
+                        return new PaymentDto(payment.getUser_id(), payment.getAmount(), payment.getType(), date);
+                    })
+                    .toList();
+            return new UserDto(
+                    user.getId(),
+                    user.getName(),
+                    user.getSurname(),
+                    user.getPhoneNumber(),
+                    user.getBalance(),
+                    paymentList);
+        } catch (JWTVerificationException exception) {
             return null;
         }
     }
