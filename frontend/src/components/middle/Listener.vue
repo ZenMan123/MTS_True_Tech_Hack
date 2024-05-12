@@ -7,6 +7,7 @@ import axios from "axios";
 
 export default {
   name: "Listener",
+  props: ["buttonList"],
   created() {
     window.addEventListener('keydown', this.handleStartRecording);
     window.addEventListener('keyup', this.handleStopRecording);
@@ -54,9 +55,13 @@ export default {
       }
     },
     async sendRecording(blob) {
+      console.log(this.buttonList)
       const formData = new FormData();
       formData.append('audio', blob);
-      axios.post('http://localhost:8090/api/upload-audio', formData)
+      axios.post('http://localhost:8090/api/upload-audio', {
+        buttonList: this.buttonList,
+        audio: formData
+      })
           .then(() => console.log('Аудио успешно отправлено на сервер.'))
           .catch(() => console.error('Ошибка при отправке аудио на сервер:'))
     }
