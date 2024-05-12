@@ -28,7 +28,6 @@ export default {
     <div class="header">
       <h2>История операций</h2>
       <div class="print">
-        <img src="../../../../assets/img/logoMtsBank.png" alt="print">
         Распечатать
       </div>
     </div>
@@ -41,17 +40,17 @@ export default {
       <hr>
       <table>
         <thead>
-        <tr>
-          <th>Тип платежа</th>
-          <th>Сумма</th>
-          <th>Дата и время</th>
-        </tr>
+          <tr>
+            <th>Тип платежа</th>
+            <th>Сумма</th>
+            <th>Дата и время</th>
+          </tr>
         </thead>
+
         <tbody>
         <tr v-for="payment in payments" :key="payment.date">
           <td>
             <div class="category">
-              <img src="../../../../assets/img/logoMtsBank.png" alt="logo">
               {{ payment.type }}
             </div>
           </td>
@@ -65,6 +64,37 @@ export default {
 </template>
 
 <style scoped>
+
+.history {
+  background-color: #fff;
+  padding: 1rem;
+  margin: 2rem 4rem;
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content ul{
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.content ul li{
+  margin-right: 1rem;
+}
+
+table {
+  padding: 1rem;
+}
+thead th{
+  padding-right: 1rem;
+}
+
 .print img {
   max-width: 4rem;
 }
