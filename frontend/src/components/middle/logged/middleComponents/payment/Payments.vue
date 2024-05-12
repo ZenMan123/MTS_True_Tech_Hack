@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-  name: "Payments",
+  name: "Transactions",
   props: ["user"],
   data() {
     return {
@@ -35,10 +35,16 @@ export default {
 };
 </script>
 
+<!-- <script>
+export default {
+  name: "Transactions"
+}
+</script> -->
+
 <template>
   <div class="container_payments">
     <div class="input-group">
-      <label for="toPhoneNumber">Номер телефона получателя</label>
+      <label for="toPhoneNumber">Номер договора</label>
       <input type="text" id="toPhoneNumber" v-model="toPhoneNumber"/>
     </div>
 
