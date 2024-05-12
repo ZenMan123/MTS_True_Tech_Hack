@@ -59,6 +59,9 @@ header nav ul {
     overflow: auto;
 }
 
+.background {
+    padding: 2rem;
+}
 
 footer {
     margin-top: 2rem;
@@ -66,3 +69,4 @@ footer {
     padding-top: 0.5rem;
     text-align: center;
 }
+

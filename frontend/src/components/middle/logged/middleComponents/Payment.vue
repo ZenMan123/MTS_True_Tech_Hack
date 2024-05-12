@@ -75,16 +75,16 @@ export default {
             <component :is="type" :user="user"></component>
           </div>
         </div>
-        <div>
+        <!-- <div>
             <component :is="type"></component>
-            <!-- <div class="card payment">
+            <div class="card payment">
               <div>Мобильный телефон</div>
               <div>Госуслуги, штрафы, налоги</div>
               <div>ЖКХ, кварплата</div>
               <div>Погашение кредитов</div>
               <div>Интернет и ТВ, Телефония</div>
               <div>Образование</div>
-            </div> -->
+            </div>
             <div class="card transactions">
               <div>По номеру телефона</div>
               <div>По номеру карты</div>
@@ -92,7 +92,7 @@ export default {
               <div>За рубеж</div>
               <div>По реквизитам</div>
             </div>
-          </div>
+          </div> -->
       </div>
 
     </div>
@@ -128,9 +128,9 @@ export default {
 }
 .card {
   display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 24px;
-    gap: 24px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 24px;
+  gap: 24px;
 }
 .user_data div, .card div {
   display: flex;

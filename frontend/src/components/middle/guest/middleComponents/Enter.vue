@@ -34,7 +34,6 @@ export default {
         </div>
         </div>
          <div class="field error">{{ error }}</div>
-        
       </form>
     </div>
   </div>
@@ -97,23 +96,23 @@ input {
 }
 .button-field input{
   width: 100%;
-    padding: 0.875rem 0.75rem;
-    margin-top: 1.25rem;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    border-radius: 0.25rem;
-    border: none;
-    font-feature-settings: "tnum", "lnum";
-    outline: none;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    transition: background-color 0.1s ease 0s;
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    background-color: rgb(227, 6, 17);
-    -webkit-tap-highlight-color: transparent;
+  padding: 0.875rem 0.75rem;
+  margin-top: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-feature-settings: "tnum", "lnum";
+  outline: none;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  transition: background-color 0.1s ease 0s;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: rgb(227, 6, 17);
+  -webkit-tap-highlight-color: transparent;
 }
 </style>

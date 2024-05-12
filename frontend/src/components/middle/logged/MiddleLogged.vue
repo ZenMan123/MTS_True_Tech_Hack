@@ -35,6 +35,6 @@ export default {
 <style scoped>
 .background {
   background-color: #f2f3f7;
-  padding: 0 2.5rem;
+  padding: 2rem 2.5rem;
 }
 </style>
