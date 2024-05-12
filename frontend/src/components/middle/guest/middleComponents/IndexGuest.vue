@@ -6,12 +6,15 @@ export default {
 
 <template>
   <div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores delectus dolores eaque explicabo officia
-      ratione, recusandae saepe tempore tenetur vel!</p>
-    <p>Входите!</p>
+    <h2>Входите!</h2>
   </div>
 </template>
 
 <style scoped>
-
+div{
+  text-align: center; 
+  vertical-align: middle;
+  padding: 5rem;
+  color: rgb(227, 6, 17);
+}
 </style>

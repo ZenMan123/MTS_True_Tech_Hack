@@ -36,8 +36,7 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h2>Платежи</h2>
+  <div class="container_payments">
     <div class="input-group">
       <label for="toPhoneNumber">Номер телефона получателя</label>
       <input type="text" id="toPhoneNumber" v-model="toPhoneNumber"/>
@@ -53,6 +52,11 @@ export default {
 
 <style scoped>
 /* Стили для компонента "Payments" */
+
+.container_payments{
+  padding-top: 2rem;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;

@@ -34,6 +34,8 @@ export default {
     this.fetchBalance();
   }
 }
+
+
 </script>
 
 <template>
@@ -71,28 +73,10 @@ export default {
             <a href="#" @click="changeType('Payments')">Платежи</a>
             <a href="#" @click="changeType('Transactions')">Переводы</a>
           </div>
-          <div>
+          <div class="container_payments">
             <component :is="type" :user="user"></component>
           </div>
         </div>
-        <!-- <div>
-            <component :is="type"></component>
-            <div class="card payment">
-              <div>Мобильный телефон</div>
-              <div>Госуслуги, штрафы, налоги</div>
-              <div>ЖКХ, кварплата</div>
-              <div>Погашение кредитов</div>
-              <div>Интернет и ТВ, Телефония</div>
-              <div>Образование</div>
-            </div>
-            <div class="card transactions">
-              <div>По номеру телефона</div>
-              <div>По номеру карты</div>
-              <div>Между своими счетами</div>
-              <div>За рубеж</div>
-              <div>По реквизитам</div>
-            </div>
-          </div> -->
       </div>
 
     </div>
@@ -126,12 +110,14 @@ export default {
   grid-column: 1 / 4;
   flex-direction: column;
 }
+
 .card {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 24px;
   gap: 24px;
 }
+
 .user_data div, .card div {
   display: flex;
   flex-direction: column;
@@ -159,8 +145,12 @@ export default {
   grid-column: 4 / 13;
 }
 
+.container_payments{
+  margin-top: 2rem;
+}
+
 .buttons {
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 
 .buttons a {
@@ -171,5 +161,8 @@ export default {
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   border-radius: 20px;
+}
+.buttons a:focus {
+  background: rgb(227, 6, 17); 
 }
 </style>
