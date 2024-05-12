@@ -32,11 +32,6 @@ export default {
       </div>
     </div>
     <div class="content">
-      <ul>
-        <li><a>За сегодня</a></li>
-        <li><a>За эту неделю</a></li>
-        <li><a>За всё время</a></li>
-      </ul>
       <hr>
       <table>
         <thead>
@@ -48,15 +43,15 @@ export default {
         </thead>
 
         <tbody>
-        <tr v-for="payment in payments" :key="payment.date">
-          <td>
-            <div class="category">
-              {{ payment.type }}
-            </div>
-          </td>
-          <td>{{ payment.amount }}</td>
-          <td>{{ payment.date }}</td>
-        </tr>
+          <tr v-for="payment in payments" :key="payment.date">
+            <td>
+              <div class="category">
+                {{ payment.type }}
+              </div>
+            </td>
+            <td>{{ payment.amount }}</td>
+            <td>{{ payment.date }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -76,12 +71,15 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 .content ul{
   display: flex;
   flex-direction: row;
   list-style-type: none;
+  padding-left: 1rem;
 }
 
 .content ul li{
@@ -90,16 +88,19 @@ export default {
 
 table {
   padding: 1rem;
-}
+  width: 100%;
+} 
+
 thead th{
-  padding-right: 1rem;
+  padding-bottom: 1rem;
 }
 
-.print img {
-  max-width: 4rem;
+
+tbody td {
+  align-items: center;
+  text-align: center; 
+  vertical-align: middle;
+  padding-bottom: 1rem;
 }
 
-.content img {
-  max-width: 5rem;
-}
 </style>

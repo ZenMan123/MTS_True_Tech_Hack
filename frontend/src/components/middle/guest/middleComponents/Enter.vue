@@ -32,8 +32,8 @@ export default {
           <div class="button-field">
           <input type="submit" value="Далее">
         </div>
+        <div class="field error">{{ error }}</div>
         </div>
-         <div class="field error">{{ error }}</div>
       </form>
     </div>
   </div>
@@ -52,6 +52,7 @@ export default {
   padding: 2rem;
   margin: 0px;
 }
+
 .field {
   position: relative;
     padding: 3rem;
@@ -59,6 +60,11 @@ export default {
     background-color: #ffffff;
     width: 15rem;
 }
+
+.error{
+  padding: 0;
+}
+
 .name {
   padding-bottom: 0.125rem;
   font-style: normal;
@@ -76,6 +82,7 @@ export default {
   -webkit-tap-highlight-color: transparent;
   border-radius: 8px;
 }
+
 input {
   position: relative;
     width: 100%;
@@ -94,6 +101,7 @@ input {
     -webkit-tap-highlight-color: transparent;
     border-radius: 8px;
 }
+
 .button-field input{
   width: 100%;
   padding: 0.875rem 0.75rem;
