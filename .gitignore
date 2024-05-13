@@ -2,3 +2,4 @@
 text_processing/models/
 speech_processing/models/
 .vs/
+/backend/target/
