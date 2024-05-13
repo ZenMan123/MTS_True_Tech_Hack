@@ -42,12 +42,11 @@ def continue_dialogue():
     dialogue_state = json.loads(request.files["dialogue_state"].read())
     dialogue_model = TaskDialogueModel(dialogue_state, phi_3_model)
 
-    unknown_features = dialogue_model.update_dialogue_state(text)
+    dialogue_model.update_dialogue_state(text)
 
     result = {
-        "status": "OK" if len(unknown_features) == 0 else "UNKNOWN_FEATURES",
-        "unknown_features": unknown_features,
-        "known_features": dialogue_model.get_dialogue_state(),
+        "status": "OK",
+        "dialogue_state": dialogue_model.get_dialogue_state(),
     }
 
     return jsonify(result)
@@ -66,8 +65,8 @@ def update_one_dialogue_feature():
 
     result = {
         "status": "OK" if predicted_feature else "UNKNOWN_FEATURES",
-        "unknown_features": [feature],
-        "known_features": dialogue_model.get_dialogue_state(),
+        "dialogue_state": dialogue_model.get_dialogue_state(),
+        "predicted_feature": predicted_feature,
     }
 
     return jsonify(result)
