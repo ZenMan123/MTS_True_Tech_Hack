@@ -6,7 +6,7 @@ spring:
       max-file-size: 10MB
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgresql:5432/wallet
+    url: jdbc:postgresql://localhost:5437/wallet
     username: postgres
     password: postgres
 

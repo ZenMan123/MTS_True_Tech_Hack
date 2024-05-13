@@ -58,6 +58,7 @@ export default {
       console.log(this.buttonList)
       const formData = new FormData();
       formData.append('audio', blob);
+      formData.append('buttonList', JSON.stringify(this.buttonList));
       axios.post('http://localhost:8090/api/upload-audio', formData)
           .then(() => console.log('Аудио успешно отправлено на сервер.'))
           .catch(() => console.error('Ошибка при отправке аудио на сервер:'))
