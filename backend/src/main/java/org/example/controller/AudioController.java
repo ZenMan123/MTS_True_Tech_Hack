@@ -40,18 +40,19 @@ public class AudioController {
 
     @PostMapping("/api/upload-audio")
     @CrossOrigin
-    public ResponseEntity<String> handleAudioUpload(@RequestParam("audio") MultipartFile audioFile, HttpSession session,
+    public ResponseEntity<Map<String,String>> handleAudioUpload(@RequestParam("audio") MultipartFile audioFile, HttpSession session,
                                                     @RequestParam("buttonList") String buttons
     ) throws IOException {
         File outFile = audioService.parseFileToWav(audioFile);
         AudioInputStream ais = null;
         try {
             ais = AudioSystem.getAudioInputStream(outFile);
-            audioService.playSound(ais);
+            //audioService.playSound(ais);
         } catch (UnsupportedAudioFileException | IOException e) {
             throw new ParseFileException("Exception while get audioInputStream", e);
         }
         log.info("Buttons {}", buttons);
+        Map<String, String> response = new HashMap<>(Map.of("answer", "ok"));
         if (session.getAttribute(IN_DIALOG) == null) {
             session.setAttribute(IN_DIALOG, true);
             ClassifyResponse classify = mlClient.getClassify(outFile);
@@ -67,6 +68,7 @@ public class AudioController {
                     session.setAttribute(DIALOG_STATE, dialogueState);
                     session.setAttribute(REQUESTED_FEATURE, "номер телефона");
                     /* frontend вернуть текст 'уточните номер телефона' */
+                    response.replace("answer", "уточните номер телефона");
                 }
                 case "CHECK_BALANCE" -> {
                     session.setAttribute(DIALOG_TYPE, "CHECK_BALANCE");
@@ -89,8 +91,8 @@ public class AudioController {
             }
 
         }
-        Files.delete(outFile.toPath());
-        return ResponseEntity.ok("ok");
+        //Files.delete(outFile.toPath());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/api/test")
