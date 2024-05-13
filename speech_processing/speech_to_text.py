@@ -80,15 +80,24 @@ class SpeechToText:
     def recognize_wav_bytes(self, wav_bytes: bytes) -> List[str]:
         wf = wave.open(io.BytesIO(wav_bytes), "rb")
         self.rec = vosk.KaldiRecognizer(self.model, wf.getframerate())
+        self.rec.SetWords(True)
         res = []
+        prev = ""
         while True:
             data = wf.readframes(CHUNK_SIZE)
             if len(data) == 0:
                 break
             if self.rec.AcceptWaveform(data):
                 result = json.loads(self.rec.Result())
-                if result["text"]:
-                    res.append(alpha2digit(result["text"], 'ru', ordinal_threshold=0))
+                res.append(alpha2digit(result["text"], 'ru', ordinal_threshold=0))
+            else:
+                temp_txt_dict = json.loads(self.rec.PartialResult())
+                curr = temp_txt_dict['partial']
+                if len(curr) > 0:
+                    prev = curr
+        if prev and len(res) == 0:
+            res.append(alpha2digit(prev, 'ru', ordinal_threshold=0))
+        # print(res)
         return res
 
 
