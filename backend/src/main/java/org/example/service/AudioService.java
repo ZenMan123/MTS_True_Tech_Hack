@@ -24,7 +24,7 @@ public class AudioService {
             File tempFile = File.createTempFile(audioFile.getOriginalFilename(), "-temp");
             audioFile.transferTo(tempFile);
             MultimediaObject multimediaObject = new MultimediaObject(tempFile);
-            File outFile = File.createTempFile(audioFile.getOriginalFilename(), ".wav");
+            File outFile = new File("out_" + audioFile.getOriginalFilename());
             Encoder encoder = new Encoder();
             EncodingAttributes attrs = new EncodingAttributes();
             attrs.setOutputFormat("wav");
@@ -32,7 +32,6 @@ public class AudioService {
             audio.setCodec("pcm_s16le");
             attrs.setAudioAttributes(audio);
             encoder.encode(multimediaObject, outFile, attrs);
-            tempFile.delete();
             return outFile;
         } catch (EncoderException | IOException e) {
             throw new ParseFileException("Exception while parse file", e);

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.exception.ParseFileException;
 import org.example.service.AudioService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,6 @@ public class AudioController {
     private final AudioService audioService;
 
     @PostMapping("/api/upload-audio")
-    @CrossOrigin
     public ResponseEntity<String> handleAudioUpload(@RequestParam("audio") MultipartFile audioFile) {
         File outFile = audioService.parseFileToWav(audioFile);
         AudioInputStream ais = null;
