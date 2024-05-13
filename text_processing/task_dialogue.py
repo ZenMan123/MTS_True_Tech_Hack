@@ -1,6 +1,5 @@
 from textwrap import dedent
 from typing import Dict, List, Optional
-
 from text_processing.llm import LLMModel, phi_3_model
 
 
@@ -11,53 +10,8 @@ class TaskDialogueModel:
 
     def extract_feature_value(self, request: str, feature: str) -> Optional[str]:
         prompt = dedent(f"""
-        <|user|> 
-        Найди в этом тексте параметр номер телефона: "номер телефона 88005353535". 
-        В ответе напиши только параметр номер телефона. Если в тексте нет такого параметра, напиши "No such parameter".
-        <|end|>
-        <|assistant|>
-        88005353535
-        <|end|>
-        <|user|> 
-        Найди в этом тексте параметр номер телефона: "сумма перевода 5000". 
-        В ответе напиши только параметр номер телефона. Если в тексте нет такого параметра, напиши "No such parameter".  
-        <|end|>
-        <|assistant|>
-        No such parameter
-        <|end|>
-        <|user|> 
-        Найди в этом тексте параметр номер телефона: "8917123456". 
-        В ответе напиши только параметр номер телефона. Если в тексте нет такого параметра, напиши "No such parameter".    
-        <|end|>
-        <|assistant|>
-        8917123456
-        <|end|>
-        <|user|> 
-        Найди в этом тексте параметр сумма перевода: "перевести на номер 89174014543525". 
-        В ответе напиши только параметр номер телефона. Если в тексте нет такого параметра, напиши "No such parameter".    
-        <|end|>
-        <|assistant|>
-        No such parameter
-        <|end|>
-        <|user|> 
-        Найди в этом тексте параметр сумма перевода: "перевести 5000 рублей". 
-        В ответе напиши только параметр сумма перевода. Если в тексте нет такого параметра, напиши "No such parameter".
-        <|end|>
-        <|assistant|>
-        5000
-        <|end|>
-        <|user|> 
-        Найди в этом тексте параметр сумма перевода: "100500 рублей". 
-        В ответе напиши только параметр сумма перевода. Если в тексте нет такого параметра, напиши "No such parameter".
-        <|end|>
-        <|assistant|>
-        100500
-        <|end|>
-        <|user|>
         Найди в этом тексте параметр {feature}: {request}
         В ответе напиши только параметр {feature}. Если в тексте нет такого параметра, напиши "No such parameter".
-        <|end|>
-        <|assistant|>
         """)
         predicted_feature = self.model.predict(prompt, 20).split('\n')[0]
 
@@ -96,11 +50,11 @@ if __name__ == '__main__':
     }
     dialogue_model = TaskDialogueModel(state, phi_3_model)
 
-    dialogue_model.update_dialogue_state("переведи на номер 88001535343")
+    dialogue_model.update_one_feature("переведи на номер 88001535343", "Номер телефона")
     print(dialogue_model.get_dialogue_state())
 
-    dialogue_model.update_dialogue_state("сумма перевода 300 рублей на банк Тинькофф")
+    dialogue_model.update_one_feature("сумма перевода 300 рублей на банк Тинькофф", "Банк получателя")
     print(dialogue_model.get_dialogue_state())
 
-    dialogue_model.update_dialogue_state("300 рублей")
+    dialogue_model.update_one_feature("300 рублей", "Сумма перевода")
     print(dialogue_model.get_dialogue_state())
