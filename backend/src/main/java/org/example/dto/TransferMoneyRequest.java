@@ -13,6 +13,7 @@ public record TransferMoneyRequest(
         @NotBlank
         @Pattern(regexp = "\\+7\\d{10}")
         String toPhoneNumber,
-        @JsonProperty("value") double value
+        @JsonProperty("value")
+        double value
 ) {
 }

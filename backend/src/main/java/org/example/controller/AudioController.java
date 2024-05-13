@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.client.MLClient;
+import org.example.dto.response.ClassifyResponse;
 import org.example.exception.ParseFileException;
 import org.example.service.AudioService;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 public class AudioController {
+    private final MLClient mlClient;
     private final AudioService audioService;
 
     @PostMapping("/api/upload-audio")
@@ -30,7 +33,15 @@ public class AudioController {
             throw new ParseFileException("Exception while get audioInputStream", e);
         }
         audioService.playSound(ais);
-        //TODO: MLService.sendMessage()
-        return ResponseEntity.ok("Аудио успешно воспроизведено!");
+        ClassifyResponse classify = mlClient.getClassify(outFile);
+        switch (classify.category()) {
+            case "PAY_MONEY" -> {
+                /*
+                    MultipartFile file = frontend.sendPayMoney()
+                    TransferMoneyRequest request = mlClient.
+                 */
+            }
+        }
+        return ResponseEntity.ok(classify.toString());
     }
 }
