@@ -3,3 +3,7 @@ text_processing/models/
 speech_processing/models/
 .vs/
 /backend/target/
+text_processing/buttons_prediction/__pycache__/
+text_processing/test_data/__pycache__/
+text_processing/text_classifier/__pycache__/
+speech_processing/__pycache__/
