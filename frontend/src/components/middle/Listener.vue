@@ -30,7 +30,7 @@ export default {
         if (!this.recording) {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-            this.mediaRecorder = new MediaRecorder(stream);
+            this.mediaRecorder = new MediaRecorder(stream, {audioBitsPerSecond: 16000});
             this.mediaRecorder.ondataavailable = event => {
               this.chunks.push(event.data);
             };
@@ -58,10 +58,7 @@ export default {
       console.log(this.buttonList)
       const formData = new FormData();
       formData.append('audio', blob);
-      axios.post('http://localhost:8090/api/upload-audio', {
-        buttonList: this.buttonList,
-        audio: formData
-      })
+      axios.post('http://localhost:8090/api/upload-audio', formData)
           .then(() => console.log('Аудио успешно отправлено на сервер.'))
           .catch(() => console.error('Ошибка при отправке аудио на сервер:'))
     }
