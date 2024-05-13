@@ -21,7 +21,7 @@ def get_text_from_audio():
     return text
 
 
-@app.route('/api/classify_request', methods=["GET"])
+@app.route('/api/classify_request', methods=["POST"])
 def classify_request():
     text = get_text_from_audio()
 
@@ -35,7 +35,7 @@ def classify_request():
     return jsonify(result)
 
 
-@app.route('/api/continue_dialogue', methods=["GET"])
+@app.route('/api/continue_dialogue', methods=["POST"])
 def continue_dialogue():
     text = get_text_from_audio()
 
@@ -52,7 +52,7 @@ def continue_dialogue():
     return jsonify(result)
 
 
-@app.route('/api/update_one_dialogue_feature', methods=["GET"])
+@app.route('/api/update_one_dialogue_feature', methods=["POST"])
 def update_one_dialogue_feature():
     text = get_text_from_audio()
 
@@ -72,7 +72,7 @@ def update_one_dialogue_feature():
     return jsonify(result)
 
 
-@app.route('/api/choose_button_by_audio', methods=["GET"])
+@app.route('/api/choose_button_by_audio', methods=["POST"])
 def choose_button_by_audio():
     text = get_text_from_audio()
 
