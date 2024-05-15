@@ -29,12 +29,12 @@ public class UserService {
                 .getId();
         double fromBalance = userRepository.getBalanceById(fromId)
                 .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
-        double toBalance = userRepository.getBalanceById(toId)
-                .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
 
         double amount = request.value();
         validateTransferOperation(fromBalance, amount);
         userRepository.updateBalanceById(fromId, fromBalance - amount);
+        double toBalance = userRepository.getBalanceById(toId)
+                .orElseThrow(() -> new InvalidRequestException("Cannot find balance for user " + toId));
         userRepository.updateBalanceById(toId, toBalance + amount);
 
         paymentRepository.insertPayment(new PaymentDto(
@@ -46,7 +46,7 @@ public class UserService {
     }
 
     private void validateTransferOperation(double fromBalance, double value) {
-        if (fromBalance < value) {
+        if (value < 0 || fromBalance < value) {
             throw new InvalidRequestException("The balance is less than the transfer amount");
         }
     }
