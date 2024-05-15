@@ -1,7 +1,7 @@
 RUSSIAN_WORD2VEC_GENSIM_PATH = "word2vec-ruscorpora-300"
 RUSSIAN_WORD2VEC_LOCAL_PATH = "text_processing/models/russian_word2vec.wordvectors"
 
-THRESHOLD = 0.5
+THRESHOLD = 0.65
 
 CATEGORIES = [
     "запрос на отправку платежей",
