@@ -59,7 +59,7 @@ export default {
       const formData = new FormData();
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
-      formData.append('user_id', this.user ? this.user.id : null)
+      formData.append('id', this.user ? this.user.id : null)
       axios.post('http://localhost:8090/api/upload-audio', formData)
           .then((response) => {
             console.log(response.data)
