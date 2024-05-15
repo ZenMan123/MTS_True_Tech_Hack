@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default {
   name: "Listener",
-  props: ["buttonList"],
+  props: ["buttonList", "user"],
   created() {
     window.addEventListener('keydown', this.handleStartRecording);
     window.addEventListener('keyup', this.handleStopRecording);
@@ -59,14 +59,20 @@ export default {
       const formData = new FormData();
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
+      formData.append('user_id', this.user ? this.user.id : null)
       axios.post('http://localhost:8090/api/upload-audio', formData)
           .then((response) => {
             console.log(response.data)
             window.speechSynthesis.cancel()
-            const utterance = new SpeechSynthesisUtterance(response.data['answer'])
+            const utterance = new SpeechSynthesisUtterance(response.data['text_to_speak'])
             window.speechSynthesis.speak(utterance)
+            const button_id = response.data['button_id']
+            if (button_id) {
+              const button = document.getElementById(button_id)
+              button.click()
+            }
           })
-          .catch(() => console.error('Ошибка при отправке аудио на сервер:'))
+          .catch((error) => console.error('Ошибка при отправке аудио на сервер: ', error))
     }
   }
 };

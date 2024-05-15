@@ -34,7 +34,7 @@ export default {
   <main>
     <MiddleLogged v-if="user" :user="user"/>
     <MiddleGuest v-else/>
-    <Listener :buttonList="buttonList"/>
+    <Listener :buttonList="buttonList" :user="user"/>
   </main>
 </template>
 
