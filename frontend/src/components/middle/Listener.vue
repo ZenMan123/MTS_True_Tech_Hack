@@ -59,11 +59,12 @@ export default {
       const formData = new FormData();
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
-      axios.post('http://localhost:8090/api/upload-audio', formData)
+      formData.append('id', 1)
+      axios.post('http://localhost:8090/api/upload-audio', formData, {withCredentials: true})
           .then((response) => {
             console.log(response.data)
             window.speechSynthesis.cancel()
-            const utterance = new SpeechSynthesisUtterance(response.data['answer'])
+            const utterance = new SpeechSynthesisUtterance(response.data['text_to_speak'])
             window.speechSynthesis.speak(utterance)
           })
           .catch(() => console.error('Ошибка при отправке аудио на сервер:'))
