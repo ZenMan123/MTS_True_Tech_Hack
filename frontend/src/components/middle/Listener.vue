@@ -67,6 +67,7 @@ export default {
             const utterance = new SpeechSynthesisUtterance(response.data['text_to_speak'])
             window.speechSynthesis.speak(utterance)
             const button_id = response.data['button_id']
+            console.log("button_id: " + button_id)
             if (button_id) {
               const button = document.getElementById(button_id)
               button.click()
