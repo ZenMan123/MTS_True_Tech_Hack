@@ -19,3 +19,6 @@ springdoc:
 
 server:
   port: 8090
+  servlet:
+    session:
+      timeout: 30m

@@ -39,7 +39,7 @@ def classify_request():
 def continue_dialogue():
     text = get_text_from_audio()
 
-    dialogue_state = json.loads(request.files["dialogue_state"].read())
+    dialogue_state = json.loads(request.form["dialogue_state"])
     dialogue_model = TaskDialogueModel(dialogue_state, phi_3_model)
 
     dialogue_model.update_dialogue_state(text)
@@ -55,9 +55,9 @@ def continue_dialogue():
 @app.route('/api/update_one_dialogue_feature', methods=["POST"])
 def update_one_dialogue_feature():
     text = get_text_from_audio()
-
-    dialogue_state = json.loads(request.files["dialogue_state"].read())
-    feature = json.loads(request.files["feature"].read())
+    print(request.form)
+    dialogue_state = json.loads(request.form["dialogue_state"])
+    feature = request.form["feature"]
 
     dialogue_model = TaskDialogueModel(dialogue_state, phi_3_model)
 
@@ -76,7 +76,7 @@ def update_one_dialogue_feature():
 def choose_button_by_audio():
     text = get_text_from_audio()
 
-    buttons_data = json.loads(request.files["json"].read())
+    buttons_data = json.loads(request.form["json"])
     button = button_predictor_model.predict_button(text, buttons_data)
 
     result = {

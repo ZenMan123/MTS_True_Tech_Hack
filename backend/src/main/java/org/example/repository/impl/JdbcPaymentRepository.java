@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class JdbcPaymentRepository implements PaymentRepository {
-    private static final String FIND_LAST_PAYMENTS = "SELECT * from payment_history WHERE user_id = ? ORDER BY date LIMIT ?";
+    private static final String FIND_LAST_PAYMENTS = "SELECT * from payment_history WHERE user_id = ? ORDER BY date DESC LIMIT ?";
     private static final String INSERT_PAYMENT = "INSERT INTO payment_history (user_id, amount, date, type) VALUES (?, ?, ?,?) RETURNING id";
     private final JdbcTemplate jdbcTemplate;
     private final PaymentMapper MAPPER = new PaymentMapper();
