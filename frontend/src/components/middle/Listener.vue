@@ -60,7 +60,7 @@ export default {
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
       formData.append('id', this.user ? this.user.id : null)
-      axios.post('http://localhost:8090/api/upload-audio', formData)
+      axios.post('http://localhost:8090/api/upload-audio', formData, {withCredentials: true})
           .then((response) => {
             console.log(response.data)
             window.speechSynthesis.cancel()
