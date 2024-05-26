@@ -4,7 +4,6 @@ from typing import List, Dict
 
 from text_processing.buttons_prediction.base_button_predictor import BaseButtonPredictorModel
 from text_processing.buttons_prediction.word2vec_based_button_predictor import Word2VecButtonPredictorModel
-from text_processing.llm import LLMModel
 
 
 class LlmBasedButtonPredictor(BaseButtonPredictorModel):
