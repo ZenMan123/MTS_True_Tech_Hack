@@ -59,7 +59,10 @@ export default {
       const formData = new FormData();
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
-      formData.append('id', this.user ? this.user.id : null)
+      formData.append('id', this.user.userId)
+      console.log(formData.get('audio'))
+      console.log(formData.get('buttonList'))
+      console.log(formData.get('id'))
       axios.post('http://localhost:8090/api/upload-audio', formData, {withCredentials: true})
           .then((response) => {
             console.log(response.data)
@@ -69,6 +72,7 @@ export default {
             const button_id = response.data['button_id']
             console.log("button_id: " + button_id)
             if (button_id) {
+              console.log("Нажимаем")
               const button = document.getElementById(button_id)
               button.click()
             }

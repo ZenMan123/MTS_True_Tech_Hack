@@ -10,7 +10,7 @@ export default {
     <div class="user_data">
       <div class="my_phone">
         <div class="title_2">Мой телефон</div>
-        <div>{{ user.phoneNumber }}</div>
+        <div>{{ user.phone_number }}</div>
       </div>
       <div class="cards">
         <div class="title_2">Карты</div>
