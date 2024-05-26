@@ -4,12 +4,11 @@ from typing import List, Dict
 
 from text_processing.buttons_prediction.base_button_predictor import BaseButtonPredictorModel
 from text_processing.buttons_prediction.word2vec_based_button_predictor import Word2VecButtonPredictorModel
-from text_processing.llm import LLMModel, phi_3_model
+from text_processing.llm import LLMModel
 
 
 class LlmBasedButtonPredictor(BaseButtonPredictorModel):
-    def __init__(self, model: LLMModel):
-        self.model = model
+    def __init__(self):
         super().__init__()
 
     def _predict_button_from_3(self, request: str, buttons: List[Dict]) -> Dict:
@@ -62,30 +61,16 @@ class LlmBasedButtonPredictor(BaseButtonPredictorModel):
     def predict_button(self, request: str, buttons: List[Dict]) -> Dict:
         self.validate_buttons(buttons)
 
-        tmp = deepcopy(buttons)
-        while len(tmp) > 1:
-            grouped = self.group_by(tmp)
-            tmp = [self._predict_button_from_3(request, group) for group in grouped]
+        # tmp = deepcopy(buttons)
+        # while len(tmp) > 1:
+        #     grouped = self.group_by(tmp)
+        #     tmp = [self._predict_button_from_3(request, group) for group in grouped]
 
-        return tmp[0]
+        # return tmp[0]
 
-
-if __name__ == '__main__':
-    res = LlmBasedButtonPredictor(phi_3_model).predict_button(
-        "взять кредит",
-        [
-            {
-                "button_text": "оформление",
-                "button_id": 1,
-            },
-            {
-                "button_text": "переводы",
-                "button_id": 2,
-            },
-            {
-                "button_text": "мой баланс",
-                "button_id": 3,
-            }
-        ]
-    )
-    print(res)
+        for button in buttons:
+            if button["button_text"] in request.split():
+                return button
+        
+        return button[0]
+    

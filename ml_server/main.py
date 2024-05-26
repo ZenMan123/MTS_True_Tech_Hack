@@ -3,13 +3,13 @@ import json
 
 from speech_processing.speech_to_text import SpeechToText
 from text_processing.buttons_prediction.llm_based_button_predictor import LlmBasedButtonPredictor
-from text_processing.llm import phi_3_model
+# from text_processing.llm import phi_3_model
 from text_processing.task_dialogue import TaskDialogueModel
 from text_processing.text_classifier.text_classifier import TextClassifier
 
 app = Flask(__name__)
 speech_to_text_model = SpeechToText()
-button_predictor_model = LlmBasedButtonPredictor(phi_3_model)
+button_predictor_model = LlmBasedButtonPredictor()
 text_classify_model = TextClassifier()
 
 
@@ -40,7 +40,7 @@ def continue_dialogue():
     text = get_text_from_audio()
 
     dialogue_state = json.loads(request.form["dialogue_state"])
-    dialogue_model = TaskDialogueModel(dialogue_state, phi_3_model)
+    dialogue_model = TaskDialogueModel(dialogue_state)
 
     dialogue_model.update_dialogue_state(text)
 
@@ -59,7 +59,7 @@ def update_one_dialogue_feature():
     dialogue_state = json.loads(request.form["dialogue_state"])
     feature = request.form["feature"]
 
-    dialogue_model = TaskDialogueModel(dialogue_state, phi_3_model)
+    dialogue_model = TaskDialogueModel(dialogue_state)
 
     predicted_feature = dialogue_model.update_one_feature(text, feature)
 
