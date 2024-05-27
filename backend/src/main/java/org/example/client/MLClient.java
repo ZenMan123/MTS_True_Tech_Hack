@@ -1,5 +1,6 @@
 package org.example.client;
 
+import org.example.dto.response.ButtonResponse;
 import org.example.dto.response.ClassifyResponse;
 import org.example.dto.response.UpdateFeature;
 import org.springframework.core.io.FileSystemResource;
@@ -44,6 +45,19 @@ public class MLClient {
                 String.format(BASE_URL, "api/update_one_dialogue_feature"),
                 requestEntity,
                 UpdateFeature.class);
+        return response.getBody();
+    }
+
+    public ButtonResponse chooseButton(File file, String buttons) {
+        MultiValueMap<String, Object> body;
+        body = new LinkedMultiValueMap<>();
+        body.add("audio_file", new FileSystemResource(file));
+        body.add("json", buttons);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body);
+        ResponseEntity<ButtonResponse> response = restTemplate.postForEntity(
+                String.format(BASE_URL, "api/choose_button_by_audio"),
+                requestEntity,
+                ButtonResponse.class);
         return response.getBody();
     }
 }

@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
 import json
+
+from flask import Flask, request, jsonify
 
 from speech_processing.speech_to_text import SpeechToText
 from text_processing.buttons_prediction.llm_based_button_predictor import LlmBasedButtonPredictor
@@ -80,12 +81,11 @@ def choose_button_by_audio():
     button = button_predictor_model.predict_button(text, buttons_data)
 
     result = {
-        "status": "OK",
         "recommended_button_id": button["button_id"],
     }
-
+    print(text, button)
     return jsonify(result)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

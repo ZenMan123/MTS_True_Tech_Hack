@@ -1,4 +1,3 @@
-from copy import deepcopy
 from textwrap import dedent
 from typing import List, Dict
 
@@ -68,8 +67,8 @@ class LlmBasedButtonPredictor(BaseButtonPredictorModel):
         # return tmp[0]
 
         for button in buttons:
-            if button["button_text"] in request.split():
-                return button
-        
-        return button[0]
-    
+            for el in button["button_text"].lower().split():
+                if el in request.lower().split():
+                    return button
+
+        return buttons[0]

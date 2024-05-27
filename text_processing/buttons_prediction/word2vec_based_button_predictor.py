@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 import gensim.downloader
-import pymorphy2
+import pymorphy3
 from gensim.models import KeyedVectors
 import nltk
 
@@ -20,7 +20,7 @@ class Word2VecButtonPredictorModel(BaseButtonPredictorModel):
 
         if not nltk.data.find("tokenizers/punkt"):
             nltk.download("punkt")
-        self.morph = pymorphy2.MorphAnalyzer()
+        self.morph = pymorphy3.MorphAnalyzer()
 
         super().__init__()
 

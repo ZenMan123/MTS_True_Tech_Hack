@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default {
   name: "Listener",
-  props: ["buttonList", "user"],
+  props: ["user"],
   created() {
     window.addEventListener('keydown', this.handleStartRecording);
     window.addEventListener('keyup', this.handleStopRecording);
@@ -20,10 +20,27 @@ export default {
     return {
       mediaRecorder: null,
       chunks: [],
-      recording: false
+      recording: false,
+      buttonList: []
     };
   },
   methods: {
+    collectButtons() {
+      const links = document.querySelectorAll('a');
+      const buttons = document.querySelectorAll('button');
+      const elementsWithHoverEffect = document.querySelectorAll('.hover-effect');
+      const elements = [...links, ...buttons, ...elementsWithHoverEffect];
+      elements.forEach((button, index) => {
+        button.id = 'button_' + index;
+      });
+      this.buttonList = elements.map(element => {
+        return {
+          button_text: element.textContent || element.innerText,
+          button_id: element.id || null
+        };
+      });
+      console.log("Char " + this.buttonList)
+    },
     async handleStartRecording(event) {
       if (event.key === ' ') {
         event.preventDefault();
@@ -57,6 +74,7 @@ export default {
     async sendRecording(blob) {
       console.log(this.buttonList)
       const formData = new FormData();
+      this.collectButtons()
       formData.append('audio', blob);
       formData.append('buttonList', JSON.stringify(this.buttonList));
       formData.append('id', this.user.userId)
@@ -68,17 +86,18 @@ export default {
             console.log(response.data)
             window.speechSynthesis.cancel()
             const utterance = new SpeechSynthesisUtterance(response.data['text_to_speak'])
+            utterance.onend = function() {
+              this.$root.$emit("onUtteranceEnded", true)
+            }.bind(this)
             window.speechSynthesis.speak(utterance)
-            const button_id = response.data['button_id']
+            const button_id = response.data['choose_response']
             let fields = response.data['fields']
-            console.log("type::: " + JSON.stringify(response.data['task_type']))
             const task_type = response.data['task_type'] === "\"PAY_MONEY\"" ? 1 : 0
             console.log("button_id: " + button_id)
             console.log("fields: " + fields)
             console.log("task_type: " + task_type)
-            if (fields) {
+            if (fields !== undefined) {
               fields = JSON.parse(fields)
-              console.log("кидаем в шину " + fields)
               this.$root.$emit("onChangePage", "Payment")
               setTimeout(() => {
                 this.$root.$emit("setType", "Payments")
@@ -87,8 +106,8 @@ export default {
                 this.$root.$emit("onFieldsFilled", task_type, fields)
               }, 1000)
             }
-            if (button_id) {
-              console.log("Нажимаем")
+            if (button_id !== undefined) {
+              console.log("Нажимаем " + button_id)
               const button = document.getElementById(button_id)
               button.click()
             }

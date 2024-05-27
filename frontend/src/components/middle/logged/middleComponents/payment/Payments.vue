@@ -17,10 +17,13 @@ export default {
         console.log("PAY_MONEY: " + fields)
         this.toPhoneNumber = '+' + (fields['номер телефона']).replaceAll(' ', "")
         this.amount = fields['сумма перевода']
+      }
+    })
+    this.$root.$on("onUtteranceEnded", flag => {
+      if (flag && this.toPhoneNumber && this.amount) {
         setTimeout(() => {
-              this.sendTransfer()
-            }, 3000
-        )
+          this.sendTransfer()
+        }, 1000)
       }
     })
   },

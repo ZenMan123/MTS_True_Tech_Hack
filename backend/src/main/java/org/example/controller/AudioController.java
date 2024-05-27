@@ -76,12 +76,12 @@ public class AudioController {
         log.info("Buttons {}", buttons);
         Map<String, String> response = new HashMap<>(Map.of("text_to_speak", "ok"));
         if (session.getAttribute(IN_DIALOG) == null) {
-            session.setAttribute(IN_DIALOG, true);
             ClassifyResponse classify = mlClient.getClassify(outFile);
             session.setAttribute(DIALOG_TYPE, classify.toString());
             log.info("Classify, {}", classify);
             switch (classify.category()) {
                 case "PAY_MONEY" -> {
+                    session.setAttribute(IN_DIALOG, true);
                     session.setAttribute(DIALOG_TYPE, "PAY_MONEY");
                     Map<String, String> dialogueState = new HashMap<>();
                     dialogueState.put("номер телефона", null);
@@ -95,6 +95,7 @@ public class AudioController {
                     response.replace("text_to_speak", "Ваш баланс " + userService.getBalance(id));
                 }
                 case "PAY_BILLS" -> {
+                    session.setAttribute(IN_DIALOG, true);
                     session.setAttribute(DIALOG_TYPE, "PAY_BILLS");
                     Map<String, String> dialogueState = new HashMap<>();
                     dialogueState.put("номер телефона", null);
@@ -105,7 +106,8 @@ public class AudioController {
                     break;
                 }
                 case "GOTO_BUTTON" -> {
-
+                    String button_id = mlClient.chooseButton(outFile, buttons).id();
+                    response.put("choose_response", button_id);
                 }
                 default -> session.setAttribute(DIALOG_TYPE, "UNKNOWN_STATE");
             }
