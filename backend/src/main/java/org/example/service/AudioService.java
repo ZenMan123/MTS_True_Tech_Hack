@@ -38,17 +38,4 @@ public class AudioService {
         }
     }
 
-    public void playSound(AudioInputStream ais) {
-        try {
-            Clip clip = AudioSystem.getClip();
-            clip.open(ais);
-            clip.setFramePosition(0);
-            clip.start();
-            Thread.sleep(clip.getMicrosecondLength() / 1000);
-            clip.stop();
-            clip.close();
-        } catch (LineUnavailableException | IOException | InterruptedException e) {
-            throw new PlaySoundException("Exception while try to play sound", e);
-        }
-    }
 }

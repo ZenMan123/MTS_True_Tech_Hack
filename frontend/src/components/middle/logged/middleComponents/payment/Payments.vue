@@ -2,13 +2,27 @@
 import axios from "axios";
 
 export default {
-  name: "Transactions",
+  name: "Payments",
   props: ["user"],
   data() {
     return {
       toPhoneNumber: "",
       amount: 0,
     };
+  },
+  mounted() {
+    this.$root.$on("onFieldsFilled", (type, fields) => {
+      console.log("ПЕРЕВОДЫ поймал " + type)
+      if (type === 1) {
+        console.log("PAY_MONEY: " + fields)
+        this.toPhoneNumber = '+' + (fields['номер телефона']).replaceAll(' ', "")
+        this.amount = fields['сумма перевода']
+        setTimeout(() => {
+              this.sendTransfer()
+            }, 3000
+        )
+      }
+    })
   },
   methods: {
     sendTransfer() {
@@ -30,21 +44,16 @@ export default {
           .catch(error => {
             console.error("Ошибка при отправке перевода", error);
           });
+      this.$root.$emit("onChangePage", "IndexLogged")
     },
   },
 };
 </script>
 
-<!-- <script>
-export default {
-  name: "Transactions"
-}
-</script> -->
-
 <template>
   <div class="container_payments">
     <div class="input-group">
-      <label for="toPhoneNumber">Номер договора</label>
+      <label for="toPhoneNumber">Номер телефона получателя</label>
       <input type="text" id="toPhoneNumber" v-model="toPhoneNumber"/>
     </div>
 
@@ -59,7 +68,7 @@ export default {
 <style scoped>
 /* Стили для компонента "Payments" */
 
-.container_payments{
+.container_payments {
   padding-top: 2rem;
 }
 
@@ -68,26 +77,28 @@ export default {
   flex-direction: column;
   margin-bottom: 1rem;
 }
-.input-group label{
+
+.input-group label {
   margin-bottom: 0.5rem;
 }
+
 input {
   position: relative;
-    width: 50%;
-    padding-left: 16px;
-    padding-right: 16px;
-    border: 0px;
-    box-sizing: border-box;
-    font-family: "MTS Sans", Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    line-height: 2.5rem;
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    -webkit-tap-highlight-color: transparent;
-    border-radius: 8px;
+  width: 50%;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 0px;
+  box-sizing: border-box;
+  font-family: "MTS Sans", Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  line-height: 2.5rem;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
 }
 
-button{
+button {
   width: 50%;
   padding: 0.875rem 0.75rem;
   margin-top: 1.25rem;

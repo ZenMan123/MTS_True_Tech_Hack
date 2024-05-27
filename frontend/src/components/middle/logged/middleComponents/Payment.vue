@@ -30,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    this.$root.$on("setType", type => this.type = type)
     // Fetch the wallet balance when the component is mounted
     this.fetchBalance();
   }
@@ -70,8 +71,8 @@ export default {
       <div class="payments_or_transfers">
         <div class="buttons">
           <div>
-            <a href="#" @click="changeType('Payments')">Платежи</a>
-            <a href="#" @click="changeType('Transactions')">Переводы</a>
+            <a href="#" @click="changeType('Transactions')">Платежи</a>
+            <a href="#" @click="changeType('Payments')">Переводы</a>
           </div>
           <div class="container_payments">
             <component :is="type" :user="user"></component>
@@ -87,6 +88,7 @@ export default {
 .title {
   margin-bottom: 1rem;
 }
+
 .title_1 {
   font-size: 32px;
   font-weight: 800;
@@ -130,7 +132,7 @@ export default {
   align-items: inherit;
 }
 
-.my_phone, .cards, .loans, .card div{
+.my_phone, .cards, .loans, .card div {
   padding: 1.5rem;
 }
 
@@ -145,7 +147,7 @@ export default {
   grid-column: 4 / 13;
 }
 
-.container_payments{
+.container_payments {
   margin-top: 2rem;
 }
 
@@ -162,7 +164,8 @@ export default {
   margin-right: 0.5rem;
   border-radius: 20px;
 }
+
 .buttons a:focus {
-  background: rgb(227, 6, 17); 
+  background: rgb(227, 6, 17);
 }
 </style>

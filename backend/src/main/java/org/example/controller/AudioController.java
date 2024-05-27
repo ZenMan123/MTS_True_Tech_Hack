@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -85,7 +86,6 @@ public class AudioController {
                     Map<String, String> dialogueState = new HashMap<>();
                     dialogueState.put("номер телефона", null);
                     dialogueState.put("сумма перевода", null);
-                    dialogueState.put("банк получателя", null);
                     session.setAttribute(DIALOG_STATE, dialogueState);
                     session.setAttribute(REQUESTED_FEATURE, "номер телефона");
                     response.replace("text_to_speak", "уточните номер телефона");
@@ -99,7 +99,6 @@ public class AudioController {
                     Map<String, String> dialogueState = new HashMap<>();
                     dialogueState.put("номер телефона", null);
                     dialogueState.put("сумма перевода", null);
-                    dialogueState.put("банк получателя", null);
                     session.setAttribute(DIALOG_STATE, dialogueState);
                     session.setAttribute(REQUESTED_FEATURE, "номер телефона");
                     response.replace("text_to_speak", "уточните номер телефона");
@@ -129,7 +128,10 @@ public class AudioController {
                 }
             }
             if (all) {
+                ObjectMapper objectMapper = new ObjectMapper();
                 response.put("text_to_speak", toText(session));
+                response.put("fields", objectMapper.writeValueAsString(session.getAttribute(DIALOG_STATE)));
+                response.put("task_type", objectMapper.writeValueAsString(session.getAttribute(DIALOG_TYPE)));
                 session.setAttribute(IN_DIALOG, null);
                 session.setAttribute(DIALOG_STATE, null);
                 session.setAttribute(DIALOG_TYPE, null);
